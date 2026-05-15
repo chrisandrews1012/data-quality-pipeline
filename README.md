@@ -38,8 +38,10 @@ On the included synthetic HR dataset (520 rows, 9 columns):
 git clone https://github.com/chrisandrews1012/data-quality-pipeline.git
 cd data-quality-pipeline
 uv sync
-cp .env.example .env  # add your ANTHROPIC_API_KEY
+cp .env.example .env
 ```
+
+> **Note:** An Anthropic API key is required. Add it to `.env` after copying the example: `ANTHROPIC_API_KEY=your_key_here`. Keys can be created at [console.anthropic.com](https://console.anthropic.com).
 
 ```bash
 make data   # Generate synthetic messy dataset
@@ -86,6 +88,7 @@ data-quality-pipeline/
 │   ├── test_profiler.py
 │   ├── test_tools.py
 │   └── test_validator.py
+├── .env.example
 ├── .python-version
 ├── Makefile
 ├── pyproject.toml
