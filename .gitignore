@@ -1,0 +1,11 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+data/raw/
+data/processed/
+docs/data_quality_report.md
+*.egg-info/
+dist/
+.DS_Store
