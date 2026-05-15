@@ -61,6 +61,26 @@ uv run python -m src.data_quality_pipeline.pipeline path/to/your/data.csv
 
 The pipeline adapts to whatever columns are present, profiling and repairing based on inferred semantic types.
 
+## Roadmap
+
+The next phase is a web interface so the pipeline can be run from a browser without any local setup.
+
+**Backend (FastAPI)**
+- `POST /run` — accepts a CSV upload, starts the pipeline in a background thread, returns a `job_id`
+- `GET /stream/{job_id}` — SSE endpoint that streams a progress event as each agent completes
+- `GET /report/{job_id}` — returns the markdown report rendered as HTML
+- `GET /download/{job_id}` — returns the cleaned CSV for download
+
+**Frontend (single HTML page)**
+- Drag-and-drop CSV upload
+- Live progress indicator as each of the four agents completes
+- Report rendered inline when the pipeline finishes
+- Download button for the cleaned CSV
+
+**Pipeline changes**
+- Refactor progress output from `rich` console to emitted events so the SSE endpoint can forward them to the browser
+- In-memory job store (job_id → status, progress, output paths) — no database required
+
 ## File Structure
 
 ```
