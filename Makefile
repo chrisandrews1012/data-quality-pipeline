@@ -1,4 +1,4 @@
-.PHONY: install data run test clean all
+.PHONY: install data run serve test clean all
 
 install:
 	uv sync
@@ -8,6 +8,9 @@ data:
 
 run:
 	uv run python -m src.data_quality_pipeline.pipeline
+
+serve:
+	uv run uvicorn src.data_quality_pipeline.server:app --reload
 
 test:
 	uv run pytest tests/ -v

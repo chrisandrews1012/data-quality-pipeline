@@ -1,0 +1,108 @@
+import asyncio
+import tempfile
+import os
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+import markdown as md
+from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
+
+from .jobs import append_event, complete_job, create_job, fail_job, get_job, set_running
+from .pipeline import run_pipeline
+
+app = FastAPI()
+_executor = ThreadPoolExecutor(max_workers=4)
+
+STATIC_DIR = Path(__file__).parent.parent.parent / "static"
+
+
+@app.get("/")
+async def index():
+    return FileResponse(STATIC_DIR / "index.html")
+
+
+@app.post("/run")
+async def run(file: UploadFile):
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Only CSV files are supported.")
+
+    tmp_dir = tempfile.mkdtemp()
+    input_path = os.path.join(tmp_dir, file.filename)
+    output_path = os.path.join(tmp_dir, "cleaned.csv")
+    report_path = os.path.join(tmp_dir, "report.md")
+
+    contents = await file.read()
+    with open(input_path, "wb") as f:
+        f.write(contents)
+
+    job_id = create_job()
+
+    def run_job():
+        set_running(job_id)
+        try:
+            run_pipeline(
+                input_path=input_path,
+                output_path=output_path,
+                report_path=report_path,
+                progress_callback=lambda msg: append_event(job_id, msg),
+            )
+            complete_job(job_id, output_path, report_path)
+        except Exception as e:
+            fail_job(job_id, str(e))
+
+    asyncio.get_event_loop().run_in_executor(_executor, run_job)
+
+    return {"job_id": job_id}
+
+
+@app.get("/stream/{job_id}")
+async def stream(job_id: str):
+    job = get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found.")
+
+    async def event_generator():
+        sent = 0
+        while True:
+            job = get_job(job_id)
+            events = job["events"]
+
+            while sent < len(events):
+                yield f"data: {events[sent]}\n\n"
+                sent += 1
+
+            if job["status"] in ("complete", "error"):
+                if job["status"] == "error":
+                    yield f"data: error: {job['error_message']}\n\n"
+                yield "data: done\n\n"
+                break
+
+            await asyncio.sleep(0.5)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
+
+@app.get("/report/{job_id}")
+async def report(job_id: str):
+    job = get_job(job_id)
+    if not job or job["status"] != "complete":
+        raise HTTPException(status_code=404, detail="Report not ready.")
+
+    with open(job["report_path"]) as f:
+        content = f.read()
+
+    return HTMLResponse(md.markdown(content, extensions=["tables"]))
+
+
+@app.get("/download/{job_id}")
+async def download(job_id: str):
+    job = get_job(job_id)
+    if not job or job["status"] != "complete":
+        raise HTTPException(status_code=404, detail="File not ready.")
+
+    return FileResponse(
+        job["output_path"],
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=cleaned.csv"},
+    )

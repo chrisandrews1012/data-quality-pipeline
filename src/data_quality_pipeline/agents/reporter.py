@@ -25,6 +25,10 @@ reporter_agent = Agent(
     ## Dataset Overview
     A markdown table with: row count, column count, duplicate rows,
     total nulls, columns profiled.
+    Note: total nulls reflects the raw input before any repairs. Some repairs
+    (such as coercing string columns to numeric) may create additional nulls
+    during processing before imputing them. If the repairs section shows more
+    nulls imputed than the overview reports, explain this in the Executive Summary.
 
     ## Column Profile
     A markdown table with one row per column showing: name, inferred type,
@@ -38,13 +42,10 @@ reporter_agent = Agent(
     downstream users of this dataset.
 
     ## Validation Findings
-    A markdown table of all failures with: column, severity, description,
-    suggested fix. Use emoji for severity: 🔴 critical, 🟡 warning, 🔵 info.
-
-    ## Rules Applied
-    A markdown table of all rules the validator inferred and applied,
-    even passing ones. Shows the reader the agent actually reasoned about
-    the dataset.
+    A markdown table of failures only (rules that did not pass).
+    Columns: column, severity, description, suggested fix.
+    Severity values: critical, consideration, info. Plain text, no emoji.
+    If there are no failures, write "No issues found."
 
     ## Repairs Applied
     A markdown table of: column, issue, action taken, rows affected,

@@ -65,13 +65,13 @@ class DataProfile(BaseModel):
 class ValidationRule(BaseModel):
     column: str
     rule_description: str
-    severity: Literal["critical", "warning", "info"]
+    severity: Literal["critical", "consideration", "info"]
 
 
 class ValidationFailure(BaseModel):
     column: str
     rule: str
-    severity: Literal["critical", "warning", "info"]
+    severity: Literal["critical", "consideration", "info"]
     affected_rows: int
     description: str
     suggested_fix: str

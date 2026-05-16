@@ -188,57 +188,19 @@ def apply_repairs(
         elif inferred == "email":
             null_count = int(df[col].isnull().sum())
             if null_count > 0:
-                drop_pct = null_count / original_row_count
-                mechanism = mechanism_lookup.get(col, "MCAR")
-                if drop_pct > DROP_THRESHOLD or mechanism == "MAR":
-                    unresolved.append(
-                        f"'{col}' (email): {null_count} null values ({drop_pct:.0%} of rows, "
-                        f"mechanism: {mechanism}). Dropping would exceed the {DROP_THRESHOLD:.0%} "
-                        f"threshold or risk bias. Manual review required."
-                    )
-                else:
-                    df = df.dropna(subset=[col])
-                    rows_dropped += null_count
-                    actions.append(RepairAction(
-                        column=col,
-                        issue="Null email values",
-                        action_taken="dropped_rows",
-                        rows_affected=null_count,
-                        before_example="NaN",
-                        after_example="Row removed",
-                        reason=(
-                            f"Email is a critical identifier. {null_count} null rows "
-                            f"({drop_pct:.0%}) is within the {DROP_THRESHOLD:.0%} drop threshold "
-                            f"and missingness is {mechanism}, so deletion is safe."
-                        ),
-                    ))
+                unresolved.append(
+                    f"'{col}' (email): {null_count} null values. Whether to drop or "
+                    f"keep these rows depends on whether email is required downstream. "
+                    f"Manual review required."
+                )
             invalid_mask = ~df[col].apply(is_valid_email)
             bad_count = int(invalid_mask.sum())
             if bad_count > 0:
-                drop_pct = bad_count / original_row_count
-                if drop_pct > DROP_THRESHOLD:
-                    unresolved.append(
-                        f"'{col}' (email): {bad_count} malformatted values ({drop_pct:.0%} of rows). "
-                        f"Dropping would exceed the {DROP_THRESHOLD:.0%} threshold. "
-                        f"Manual correction required."
-                    )
-                else:
-                    example_before = df.loc[invalid_mask, col].iloc[0]
-                    df = df[~invalid_mask]
-                    rows_dropped += bad_count
-                    actions.append(RepairAction(
-                        column=col,
-                        issue="Malformatted email addresses",
-                        action_taken="dropped_rows",
-                        rows_affected=bad_count,
-                        before_example=str(example_before),
-                        after_example="Row removed",
-                        reason=(
-                            f"Malformatted emails cannot be corrected without knowing the intended value. "
-                            f"{bad_count} affected rows ({drop_pct:.0%}) is within the "
-                            f"{DROP_THRESHOLD:.0%} drop threshold."
-                        ),
-                    ))
+                example = df.loc[invalid_mask, col].iloc[0]
+                unresolved.append(
+                    f"'{col}' (email): {bad_count} malformatted values (e.g. '{example}'). "
+                    f"Cannot be corrected automatically. Manual review required."
+                )
 
         # date 
         elif inferred == "date":

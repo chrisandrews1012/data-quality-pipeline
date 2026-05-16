@@ -29,9 +29,9 @@ validator_agent = Agent(
       unknown     - flag high null rates; no other rules applied
 
     Severity:
-      critical - data is unusable without fixing this (nulls in ID, wrong dtype)
-      warning  - degrades quality but data is still usable (inconsistent casing, outliers)
-      info     - minor issue worth noting (low cardinality, sparse column)
+      critical      - data is unusable without fixing this (nulls in ID, wrong dtype)
+      consideration - something worth knowing that may affect analysis, but data is still usable (inconsistent casing, outliers, high null rates on non-critical columns)
+      info          - minor observation worth noting (low cardinality, sparse column)
 
     Always check for duplicate rows regardless of column types.
     Set passed=True only if there are zero critical failures.

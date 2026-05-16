@@ -1,4 +1,5 @@
 import sys
+from typing import Callable
 
 from dotenv import load_dotenv
 from rich.console import Console
@@ -19,6 +20,7 @@ def run_pipeline(
     input_path: str = "data/raw/messy_data.csv",
     output_path: str = "data/processed/cleaned_data.csv",
     report_path: str = "docs/data_quality_report.md",
+    progress_callback: Callable[[str], None] | None = None,
 ) -> PipelineContext:
     """
     Run the full four-agent data quality pipeline.
@@ -33,75 +35,90 @@ def run_pipeline(
     :type output_path: str
     :param report_path: Path to write the markdown report.
     :type report_path: str
+    :param progress_callback: Optional callable that receives a progress message
+        after each agent completes. Used by the web server to stream SSE events.
+        When None, progress is printed to the rich console instead.
+    :type progress_callback: Callable[[str], None] | None
     :returns: The full PipelineContext bundling all agent outputs.
     :rtype: PipelineContext
     """
-    console.print(Panel.fit(
-        "[bold cyan]Multi-Agent Data Quality Pipeline[/bold cyan]\n"
-        f"Input:  {input_path}\n"
-        f"Output: {output_path}\n"
-        f"Report: {report_path}",
-        border_style="cyan",
-    ))
+    def emit(msg: str) -> None:
+        if progress_callback:
+            progress_callback(msg)
+        else:
+            console.print(msg)
 
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        console=console,
-    ) as progress:
+    def run_with_progress(fn, task_label):
+        if progress_callback:
+            return fn()
+        with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console) as p:
+            task = p.add_task(task_label, total=None)
+            result = fn()
+            p.remove_task(task)
+            return result
 
-        # Agent 1: Profile
-        task = progress.add_task("[cyan]Agent 1/4: Profiling dataset...", total=None)
-        profile = run_profiler(input_path)
-        progress.remove_task(task)
-        console.print(
-            f"[green]Profiler complete.[/green] "
-            f"{profile.row_count} rows, {profile.column_count} columns, "
-            f"{profile.duplicate_row_count} duplicates"
-        )
+    if not progress_callback:
+        console.print(Panel.fit(
+            "[bold cyan]Multi-Agent Data Quality Pipeline[/bold cyan]\n"
+            f"Input:  {input_path}\n"
+            f"Output: {output_path}\n"
+            f"Report: {report_path}",
+            border_style="cyan",
+        ))
 
-        # Agent 2: Validate
-        task = progress.add_task("[cyan]Agent 2/4: Validating dataset...", total=None)
-        validation = run_validator(profile)
-        progress.remove_task(task)
-        status = "[red]FAILED[/red]" if not validation.passed else "[green]PASSED[/green]"
-        console.print(
-            f"[green]Validator complete.[/green] "
-            f"Status: {status} | "
-            f"{len(validation.rules_applied)} rules applied | "
-            f"{validation.failure_count} failures"
-        )
+    # Agent 1: Profile
+    profile = run_with_progress(
+        lambda: run_profiler(input_path),
+        "[cyan]Agent 1/4: Profiling dataset...",
+    )
+    emit(
+        f"Profiler complete: {profile.row_count} rows, "
+        f"{profile.column_count} columns, {profile.duplicate_row_count} duplicates"
+    )
 
-        # Agent 3: Repair
-        task = progress.add_task("[cyan]Agent 3/4: Repairing dataset...", total=None)
-        repair = run_repairer(input_path, output_path, profile)
-        progress.remove_task(task)
-        console.print(
-            f"[green]Repairer complete.[/green] "
-            f"{repair.total_repairs} repairs, "
-            f"{repair.rows_dropped} rows dropped, "
-            f"{len(repair.unresolved)} unresolved"
-        )
+    # Agent 2: Validate
+    validation = run_with_progress(
+        lambda: run_validator(profile),
+        "[cyan]Agent 2/4: Validating dataset...",
+    )
+    status = "FAILED" if not validation.passed else "PASSED"
+    emit(
+        f"Validator complete: {status} | "
+        f"{len(validation.rules_applied)} rules applied | "
+        f"{validation.failure_count} failures"
+    )
 
-        # Agent 4: Report
-        task = progress.add_task("[cyan]Agent 4/4: Writing report...", total=None)
-        context = PipelineContext(
-            input_path=input_path,
-            output_path=output_path,
-            profile=profile,
-            validation=validation,
-            repair=repair,
-        )
-        run_reporter(context, report_path)
-        progress.remove_task(task)
-        console.print(f"[green]Reporter complete.[/green] Report saved to {report_path}")
+    # Agent 3: Repair
+    repair = run_with_progress(
+        lambda: run_repairer(input_path, output_path, profile),
+        "[cyan]Agent 3/4: Repairing dataset...",
+    )
+    emit(
+        f"Repairer complete: {repair.total_repairs} repairs, "
+        f"{repair.rows_dropped} rows dropped, {len(repair.unresolved)} unresolved"
+    )
 
-    console.print(Panel.fit(
-        "[bold green]Pipeline complete.[/bold green]\n"
-        f"Cleaned data: {output_path}\n"
-        f"Report:       {report_path}",
-        border_style="green",
-    ))
+    # Agent 4: Report
+    context = PipelineContext(
+        input_path=input_path,
+        output_path=output_path,
+        profile=profile,
+        validation=validation,
+        repair=repair,
+    )
+    run_with_progress(
+        lambda: run_reporter(context, report_path),
+        "[cyan]Agent 4/4: Writing report...",
+    )
+    emit(f"Reporter complete: report saved to {report_path}")
+
+    if not progress_callback:
+        console.print(Panel.fit(
+            "[bold green]Pipeline complete.[/bold green]\n"
+            f"Cleaned data: {output_path}\n"
+            f"Report:       {report_path}",
+            border_style="green",
+        ))
 
     return context
 

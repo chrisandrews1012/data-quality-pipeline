@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Quality Pipeline</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f1117;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: #1e2330;
+      border: 1px solid #2d3448;
+      border-radius: 12px;
+      padding: 36px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .pipeline-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .pipeline-step {
+      background: #161b27;
+      border: 1px solid #2d3448;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .pipeline-step .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6366f1;
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step .title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step .desc {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .what-you-get {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .get-item {
+      flex: 1;
+      background: #161b27;
+      border: 1px solid #2d3448;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .get-item strong {
+      display: block;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+
+    .upload-label {
+      font-size: 0.8rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .pipeline-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .pipeline-step {
+      background: #161b27;
+      border: 1px solid #2d3448;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .pipeline-step .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6366f1;
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step .title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+    }
+
+    .pipeline-step .desc {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .what-you-get {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .get-item {
+      flex: 1;
+      background: #161b27;
+      border: 1px solid #2d3448;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .get-item strong {
+      display: block;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+
+    .upload-label {
+      font-size: 0.75rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    /* Upload view */
+    #upload-view {}
+
+    #drop-zone {
+      border: 2px dashed #2d3448;
+      border-radius: 8px;
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    #drop-zone:hover, #drop-zone.dragover {
+      border-color: #6366f1;
+      background: #1a1f2e;
+    }
+
+    #drop-zone svg {
+      width: 40px;
+      height: 40px;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+
+    #drop-zone p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    #drop-zone span {
+      color: #6366f1;
+      font-weight: 500;
+    }
+
+    #file-input { display: none; }
+
+    #selected-file {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: #64748b;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #4f46e5; }
+    .btn:disabled { background: #2d3448; color: #475569; cursor: not-allowed; }
+
+    /* Progress view */
+    #progress-view { display: none; }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #2d3448;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #2d3448;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: #475569;
+    }
+
+    .step.running .step-icon {
+      background: #1e3a5f;
+      color: #60a5fa;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .step.done .step-icon {
+      background: #14532d;
+      color: #4ade80;
+    }
+
+    .step.done { color: #e2e8f0; }
+
+    .step-detail {
+      font-size: 0.8rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Results view */
+    #results-view { display: none; }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn-outline {
+      flex: 1;
+      padding: 10px;
+      background: transparent;
+      color: #6366f1;
+      border: 1px solid #6366f1;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover { background: #1a1f2e; }
+
+    .btn-primary {
+      flex: 1;
+      padding: 10px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary:hover { background: #4f46e5; }
+
+    /* Report styles */
+    #report-content {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    #report-content h1 { font-size: 1.3rem; color: #f8fafc; margin-bottom: 16px; }
+    #report-content h2 { font-size: 1.05rem; color: #e2e8f0; margin: 24px 0 12px; border-bottom: 1px solid #2d3448; padding-bottom: 6px; }
+    #report-content h3 { font-size: 0.95rem; color: #e2e8f0; margin: 16px 0 8px; }
+    #report-content p { margin-bottom: 12px; }
+    #report-content hr { border: none; border-top: 1px solid #2d3448; margin: 20px 0; }
+
+    #report-content .table-wrap {
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    #report-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 500px;
+    }
+
+    #report-content th {
+      background: #2d3448;
+      color: #94a3b8;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    #report-content td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #2d3448;
+      color: #cbd5e1;
+      word-break: break-word;
+    }
+
+    #report-content td:first-child {
+      white-space: nowrap;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+
+    #report-content tr:last-child td { border-bottom: none; }
+    #report-content code { background: #2d3448; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+
+    #report-content td .severity-critical,
+    #report-content td:has-text { color: inherit; }
+
+    #report-content table td:first-child + td {
+      white-space: nowrap;
+    }
+
+    .sev-critical      { color: #f87171; font-weight: 600; }
+    .sev-consideration { color: #fbbf24; }
+    .sev-info          { color: #64748b; }
+    .res-failed        { color: #f87171; font-weight: 600; }
+    .res-passed        { color: #4ade80; }
+
+    .error-msg {
+      color: #f87171;
+      font-size: 0.9rem;
+      margin-top: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Turn any CSV into clean, documented data.</h1>
+    <p>Upload a file and get back a cleaned version, a full quality report, and a complete list of every issue found and fixed.</p>
+  </header>
+
+  <!-- Upload -->
+  <div class="card" id="upload-view">
+
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="label">Step 1</div>
+        <div class="title">Reading your data</div>
+        <div class="desc">Reads every column, figures out what type of data it holds, and checks for missing values.</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="label">Step 2</div>
+        <div class="title">Checking for issues</div>
+        <div class="desc">Checks each column against rules appropriate for its type and flags anything that looks wrong.</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="label">Step 3</div>
+        <div class="title">Fixing problems</div>
+        <div class="desc">Fixes duplicates, formatting issues, out-of-range values, and missing entries where it is safe to do so.</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="label">Step 4</div>
+        <div class="title">Writing your report</div>
+        <div class="desc">Writes up everything it found and fixed, including anything that needs your attention.</div>
+      </div>
+    </div>
+
+    <div class="what-you-get">
+      <div class="get-item"><strong>Quality Report</strong>Rendered here when done</div>
+      <div class="get-item"><strong>Cleaned CSV</strong>Ready to download</div>
+      <div class="get-item"><strong>1 to 2 min</strong>Typical run time</div>
+    </div>
+
+    <div class="upload-label">Upload your file</div>
+    <div id="drop-zone">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+      </svg>
+      <p>Drag and drop a CSV, or <span>browse</span></p>
+    </div>
+    <input type="file" id="file-input" accept=".csv" />
+    <div id="selected-file"></div>
+    <button class="btn" id="run-btn" disabled>Run Pipeline</button>
+    <div class="error-msg" id="upload-error"></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="card" id="progress-view">
+    <div class="step" id="step-profiler">
+      <div class="step-icon">1</div>
+      <div>
+        <div>Reading your data</div>
+        <div class="step-detail" id="detail-profiler">Waiting...</div>
+      </div>
+    </div>
+    <div class="step" id="step-validator">
+      <div class="step-icon">2</div>
+      <div>
+        <div>Checking for issues</div>
+        <div class="step-detail" id="detail-validator">Waiting...</div>
+      </div>
+    </div>
+    <div class="step" id="step-repairer">
+      <div class="step-icon">3</div>
+      <div>
+        <div>Fixing problems</div>
+        <div class="step-detail" id="detail-repairer">Waiting...</div>
+      </div>
+    </div>
+    <div class="step" id="step-reporter">
+      <div class="step-icon">4</div>
+      <div>
+        <div>Writing your report</div>
+        <div class="step-detail" id="detail-reporter">Waiting...</div>
+      </div>
+    </div>
+    <div class="error-msg" id="progress-error"></div>
+  </div>
+
+  <!-- Results -->
+  <div class="card" id="results-view">
+    <div class="results-actions">
+      <button class="btn-outline" id="reset-btn">Run another file</button>
+      <a class="btn-primary" id="download-btn" href="#">Download Cleaned CSV</a>
+    </div>
+    <div id="report-content"></div>
+  </div>
+
+  <script>
+    const uploadView   = document.getElementById('upload-view');
+    const progressView = document.getElementById('progress-view');
+    const resultsView  = document.getElementById('results-view');
+    const dropZone     = document.getElementById('drop-zone');
+    const fileInput    = document.getElementById('file-input');
+    const selectedFile = document.getElementById('selected-file');
+    const runBtn       = document.getElementById('run-btn');
+    const uploadError  = document.getElementById('upload-error');
+    const progressError = document.getElementById('progress-error');
+
+    let selectedCSV = null;
+
+    // Drag and drop
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) setFile(file);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) setFile(fileInput.files[0]);
+    });
+
+    function setFile(file) {
+      if (!file.name.endsWith('.csv')) {
+        uploadError.textContent = 'Please select a CSV file.';
+        return;
+      }
+      uploadError.textContent = '';
+      selectedCSV = file;
+      selectedFile.textContent = file.name;
+      runBtn.disabled = false;
+    }
+
+    // Run pipeline
+    runBtn.addEventListener('click', async () => {
+      if (!selectedCSV) return;
+
+      runBtn.disabled = true;
+      runBtn.textContent = 'Uploading...';
+      uploadError.textContent = '';
+
+      const formData = new FormData();
+      formData.append('file', selectedCSV);
+
+      let jobId;
+      try {
+        const res = await fetch('/run', { method: 'POST', body: formData });
+        if (!res.ok) {
+          const err = await res.json();
+          uploadError.textContent = err.detail || 'Upload failed.';
+          runBtn.disabled = false;
+          runBtn.textContent = 'Run Pipeline';
+          return;
+        }
+        const data = await res.json();
+        jobId = data.job_id;
+      } catch {
+        uploadError.textContent = 'Could not connect to the server.';
+        runBtn.disabled = false;
+        runBtn.textContent = 'Run Pipeline';
+        return;
+      }
+
+      showView('progress');
+      document.getElementById('step-profiler').classList.add('running');
+      document.getElementById('detail-profiler').textContent = 'Running...';
+      listenForProgress(jobId);
+    });
+
+    // SSE progress
+    const stepMap = {
+      'Profiler':  { step: 'step-profiler',  detail: 'detail-profiler'  },
+      'Validator': { step: 'step-validator', detail: 'detail-validator' },
+      'Repairer':  { step: 'step-repairer',  detail: 'detail-repairer'  },
+      'Reporter':  { step: 'step-reporter',  detail: 'detail-reporter'  },
+    };
+    let currentStep = null;
+
+    function listenForProgress(jobId) {
+      const es = new EventSource(`/stream/${jobId}`);
+
+      es.onmessage = (e) => {
+        const msg = e.data;
+
+        if (msg === 'done') {
+          es.close();
+          loadResults(jobId);
+          return;
+        }
+
+        if (msg.startsWith('error:')) {
+          es.close();
+          progressError.textContent = msg.replace('error: ', '');
+          return;
+        }
+
+        // Mark current step done, set next step to running
+        const stepKeys = Object.keys(stepMap);
+        for (let i = 0; i < stepKeys.length; i++) {
+          const key = stepKeys[i];
+          const ids = stepMap[key];
+          if (msg.startsWith(key)) {
+            const el = document.getElementById(ids.step);
+            el.classList.remove('running');
+            el.classList.add('done');
+            el.querySelector('.step-icon').textContent = '✓';
+            document.getElementById(ids.detail).textContent = msg.replace(`${key} complete: `, '');
+
+            const nextKey = stepKeys[i + 1];
+            if (nextKey) {
+              const nextEl = document.getElementById(stepMap[nextKey].step);
+              nextEl.classList.add('running');
+              document.getElementById(stepMap[nextKey].detail).textContent = 'Running...';
+            }
+
+            currentStep = ids;
+            break;
+          }
+        }
+      };
+
+      es.onerror = () => {
+        es.close();
+        progressError.textContent = 'Lost connection to server.';
+      };
+    }
+
+    async function loadResults(jobId) {
+      document.getElementById('download-btn').href = `/download/${jobId}`;
+
+      const res = await fetch(`/report/${jobId}`);
+      const html = await res.text();
+      const container = document.getElementById('report-content');
+      container.innerHTML = html;
+
+      container.querySelectorAll('table').forEach(table => {
+        const wrap = document.createElement('div');
+        wrap.className = 'table-wrap';
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      });
+
+      container.querySelectorAll('td').forEach(td => {
+        const text = td.textContent.trim().toLowerCase();
+        if (text === 'critical')      { td.innerHTML = `<span class="sev-critical">critical</span>`; }
+        else if (text === 'consideration') { td.innerHTML = `<span class="sev-consideration">consideration</span>`; }
+        else if (text === 'info')     { td.innerHTML = `<span class="sev-info">info</span>`; }
+        else if (text === 'failed')   { td.innerHTML = `<span class="res-failed">FAILED</span>`; }
+        else if (text === 'passed')   { td.innerHTML = `<span class="res-passed">PASSED</span>`; }
+      });
+
+      showView('results');
+    }
+
+    // Reset
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      selectedCSV = null;
+      selectedFile.textContent = '';
+      runBtn.disabled = true;
+      fileInput.value = '';
+      uploadError.textContent = '';
+      progressError.textContent = '';
+      currentStep = null;
+      Object.values(stepMap).forEach(({ step, detail }) => {
+        const el = document.getElementById(step);
+        el.classList.remove('running', 'done');
+        el.querySelector('.step-icon').textContent = Object.keys(stepMap).indexOf(
+          Object.keys(stepMap).find(k => stepMap[k].step === step)
+        ) + 1;
+        document.getElementById(detail).textContent = 'Waiting...';
+      });
+      document.getElementById('report-content').innerHTML = '';
+      showView('upload');
+    });
+
+    function showView(name) {
+      uploadView.style.display   = name === 'upload'   ? 'block' : 'none';
+      progressView.style.display = name === 'progress' ? 'block' : 'none';
+      resultsView.style.display  = name === 'results'  ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
