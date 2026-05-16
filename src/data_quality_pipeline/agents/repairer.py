@@ -37,6 +37,11 @@ repairer_agent = Agent(
 # Columns with more than 50% nulls are too sparse to auto-repair.
 SPARSE_THRESHOLD = 0.5
 
+# Maximum share of rows that can be dropped for a single column before the
+# action is escalated to unresolved instead. Dropping more than this risks
+# meaningful data loss, especially on small datasets.
+DROP_THRESHOLD = 0.05
+
 
 def apply_repairs(
     df: pd.DataFrame,
@@ -47,7 +52,9 @@ def apply_repairs(
 
     MNAR columns are always skipped regardless of null rate, since imputation
     would introduce systematic bias. Columns above SPARSE_THRESHOLD are also
-    skipped. All other columns are repaired according to their inferred type.
+    skipped. Row deletion is only performed when the affected rows fall within
+    DROP_THRESHOLD and missingness is MCAR — otherwise the issue is escalated
+    to unresolved. All other columns are repaired according to their inferred type.
 
     :param df: The raw input DataFrame.
     :type df: pd.DataFrame
@@ -59,17 +66,18 @@ def apply_repairs(
     actions: list[RepairAction] = []
     rows_dropped = 0
     unresolved: list[str] = []
+    original_row_count = len(df)
 
     col_types = {cp.name: cp.inferred_type for cp in profile.columns}
 
-    # Build a lookup of safe_to_impute from the missingness analysis.
+    # Build lookups from the missingness analysis.
     # MNAR columns have safe_to_impute=False and must not be imputed.
     miss_lookup: dict[str, bool] = {}
+    mechanism_lookup: dict[str, str] = {}
     if profile.missingness:
-        miss_lookup = {
-            cm.column: cm.safe_to_impute
-            for cm in profile.missingness.columns_analyzed
-        }
+        for cm in profile.missingness.columns_analyzed:
+            miss_lookup[cm.column] = cm.safe_to_impute
+            mechanism_lookup[cm.column] = cm.mechanism
 
     # Duplicates 
     before = len(df)
@@ -176,36 +184,61 @@ def apply_repairs(
                     reason="Median age preserves distribution better than mean when outliers exist.",
                 ))
 
-        # email 
+        # email
         elif inferred == "email":
             null_count = int(df[col].isnull().sum())
             if null_count > 0:
-                df = df.dropna(subset=[col])
-                rows_dropped += null_count
-                actions.append(RepairAction(
-                    column=col,
-                    issue="Null email values",
-                    action_taken="dropped_rows",
-                    rows_affected=null_count,
-                    before_example="NaN",
-                    after_example="Row removed",
-                    reason="Email is a critical identifier. Rows without one cannot be contacted or matched.",
-                ))
+                drop_pct = null_count / original_row_count
+                mechanism = mechanism_lookup.get(col, "MCAR")
+                if drop_pct > DROP_THRESHOLD or mechanism == "MAR":
+                    unresolved.append(
+                        f"'{col}' (email): {null_count} null values ({drop_pct:.0%} of rows, "
+                        f"mechanism: {mechanism}). Dropping would exceed the {DROP_THRESHOLD:.0%} "
+                        f"threshold or risk bias. Manual review required."
+                    )
+                else:
+                    df = df.dropna(subset=[col])
+                    rows_dropped += null_count
+                    actions.append(RepairAction(
+                        column=col,
+                        issue="Null email values",
+                        action_taken="dropped_rows",
+                        rows_affected=null_count,
+                        before_example="NaN",
+                        after_example="Row removed",
+                        reason=(
+                            f"Email is a critical identifier. {null_count} null rows "
+                            f"({drop_pct:.0%}) is within the {DROP_THRESHOLD:.0%} drop threshold "
+                            f"and missingness is {mechanism}, so deletion is safe."
+                        ),
+                    ))
             invalid_mask = ~df[col].apply(is_valid_email)
             bad_count = int(invalid_mask.sum())
             if bad_count > 0:
-                example_before = df.loc[invalid_mask, col].iloc[0]
-                df = df[~invalid_mask]
-                rows_dropped += bad_count
-                actions.append(RepairAction(
-                    column=col,
-                    issue="Malformatted email addresses",
-                    action_taken="dropped_rows",
-                    rows_affected=bad_count,
-                    before_example=str(example_before),
-                    after_example="Row removed",
-                    reason="Malformatted emails cannot be corrected without knowing the intended value.",
-                ))
+                drop_pct = bad_count / original_row_count
+                if drop_pct > DROP_THRESHOLD:
+                    unresolved.append(
+                        f"'{col}' (email): {bad_count} malformatted values ({drop_pct:.0%} of rows). "
+                        f"Dropping would exceed the {DROP_THRESHOLD:.0%} threshold. "
+                        f"Manual correction required."
+                    )
+                else:
+                    example_before = df.loc[invalid_mask, col].iloc[0]
+                    df = df[~invalid_mask]
+                    rows_dropped += bad_count
+                    actions.append(RepairAction(
+                        column=col,
+                        issue="Malformatted email addresses",
+                        action_taken="dropped_rows",
+                        rows_affected=bad_count,
+                        before_example=str(example_before),
+                        after_example="Row removed",
+                        reason=(
+                            f"Malformatted emails cannot be corrected without knowing the intended value. "
+                            f"{bad_count} affected rows ({drop_pct:.0%}) is within the "
+                            f"{DROP_THRESHOLD:.0%} drop threshold."
+                        ),
+                    ))
 
         # date 
         elif inferred == "date":
