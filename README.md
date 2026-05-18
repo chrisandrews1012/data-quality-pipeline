@@ -1,9 +1,10 @@
 # Multi-Agent Data Quality Pipeline
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/chrisandrews1012/data-quality-pipeline)
-![GitHub repo size](https://img.shields.io/github/repo-size/chrisandrews1012/data-quality-pipeline)
 ![Python Version](https://img.shields.io/badge/python-3.12-blue)
-![PydanticAI](https://img.shields.io/badge/PydanticAI-Claude%20Sonnet%204.6-blueviolet)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688?logo=fastapi&logoColor=white)
+![PydanticAI](https://img.shields.io/badge/PydanticAI-latest-blueviolet)
+![Claude](https://img.shields.io/badge/Claude-Sonnet%204.6-orange?logo=anthropic&logoColor=white)
 
 Upload a CSV and get back a cleaned version, a full quality report, and a complete list of every issue found and fixed. Built on a multi-agent system powered by Claude, with four specialised agents handling profiling, validation, repair, and reporting in sequence.
 
