@@ -5,24 +5,27 @@
 ![Python Version](https://img.shields.io/badge/python-3.12-blue)
 ![PydanticAI](https://img.shields.io/badge/PydanticAI-Claude%20Sonnet%204.6-blueviolet)
 
-A dataset-agnostic multi-agent pipeline that profiles, validates, repairs, and documents data quality issues in arbitrary tabular datasets.
+Upload a CSV and get back a cleaned version, a full quality report, and a complete list of every issue found and fixed. Built on a multi-agent system powered by Claude, with four specialised agents handling profiling, validation, repair, and reporting in sequence.
 
 ## Problem Statement
 
-Raw data is rarely clean. Missing values, inconsistent formatting, duplicate records, and out-of-range values are endemic to real-world datasets, and each requires different reasoning to fix correctly. A single model cannot reliably handle all of this in one pass. The challenge is decomposing the problem into discrete, auditable steps, each with a typed contract between agents so failures are catchable and the output is trustworthy.
+Raw data is rarely clean. Missing values, inconsistent formatting, duplicate records, and out-of-range values are endemic to real-world datasets, and no single fix works for all of them. A single model cannot reliably handle all of this in one pass. Breaking the problem into discrete agents, each with a specific role and a typed contract with the next, keeps failures catchable and the output trustworthy.
 
-## Approach
+## How it works
 
-Four agents run in sequence. Each receives the typed output of the previous one via Pydantic models, so the pipeline fails loudly if any agent produces malformed output.
+Four agents run in sequence, each handing its output to the next.
 
-- **Profiler** (`claude-sonnet-4-6`): receives pre-computed column statistics and infers a semantic type for each column (`id`, `email`, `age`, `date`, `currency`, `categorical`, `numeric`, `boolean`, `text`). Missingness analysis (MCAR/MAR/MNAR via Little's test and correlation checks) is computed deterministically in Python and attached after the LLM call so the agent handles reasoning, not arithmetic.
-- **Validator** (`claude-sonnet-4-6`): reads the DataProfile and infers appropriate validation rules per column based on semantic type, then applies them. MNAR columns are always escalated to critical severity since imputation would bias results.
-- **Repairer**: repairs are applied in Python, driven by the inferred semantic types from the profile. MNAR columns and columns above 50% null are skipped. The LLM receives a summary of what was done and produces a structured RepairReport with reasoning for each action.
-- **Reporter** (`claude-sonnet-4-6`): receives the full PipelineContext (profile + validation + repair) and writes a markdown data quality report.
+**Profiler** reads the dataset and figures out what each column actually is: an age, an email, a currency amount, a category, etc. Missing value patterns are analysed statistically to understand whether gaps are random or systematic.
+
+**Validator** looks at what the profiler found and decides what rules apply to each column. An age column gets range checks, an email column gets format checks, and so on. Nothing is hardcoded; it adapts to whatever columns are present.
+
+**Repairer** fixes what it can: duplicates, formatting inconsistencies, out-of-range values, missing entries. Columns where the missing data is non-random are left alone, since filling them in would silently skew the data.
+
+**Reporter** writes up everything that was found and fixed into a structured markdown report.
 
 ## Results
 
-On the included synthetic HR dataset (520 rows, 9 columns):
+On the included synthetic Human Resources dataset (520 rows, 9 columns):
 
 | Metric | Before | After |
 |---|---|---|
@@ -34,52 +37,38 @@ On the included synthetic HR dataset (520 rows, 9 columns):
 
 ## How to Run
 
+An Anthropic API key is required. Get one at [console.anthropic.com](https://console.anthropic.com).
+
 ```bash
 git clone https://github.com/chrisandrews1012/data-quality-pipeline.git
 cd data-quality-pipeline
-uv sync
-cp .env.example .env
+cp .env.example .env   # add your ANTHROPIC_API_KEY
 ```
 
-> **Note:** An Anthropic API key is required. Add it to `.env` after copying the example: `ANTHROPIC_API_KEY=your_key_here`. Keys can be created at [console.anthropic.com](https://console.anthropic.com).
+**Web interface**
 
 ```bash
-make data   # Generate synthetic messy dataset
-make run    # Run the full four-agent pipeline
-make test   # Run the test suite
+docker compose up
 ```
 
-> **Note:** The synthetic dataset and a sample report are included in the repo, so `make data` can be skipped unless you want to regenerate fresh data.
+Open [http://localhost:8000](http://localhost:8000). Upload any CSV and the pipeline runs in the browser with live progress, an inline report, and a download button for the cleaned file.
 
-The pipeline writes the cleaned CSV to `data/processed/cleaned_data.csv` and the markdown report to `docs/data_quality_report.md`.
+**Command line**
 
-**Running on your own data**
+A synthetic HR dataset is included at `data/raw/messy_data.csv` as a test fixture. Run `make run` after setup to confirm everything is working before trying your own data.
+
+```bash
+uv sync
+make run     # Run the pipeline on the included sample dataset
+make serve   # Start the web interface without Docker
+make test    # Run the test suite
+```
+
+To run on your own CSV:
 
 ```bash
 uv run python -m src.data_quality_pipeline.pipeline path/to/your/data.csv
 ```
-
-The pipeline adapts to whatever columns are present, profiling and repairing based on inferred semantic types.
-
-## Roadmap
-
-The next phase is a web interface so the pipeline can be run from a browser without any local setup.
-
-**Backend (FastAPI)**
-- `POST /run` — accepts a CSV upload, starts the pipeline in a background thread, returns a `job_id`
-- `GET /stream/{job_id}` — SSE endpoint that streams a progress event as each agent completes
-- `GET /report/{job_id}` — returns the markdown report rendered as HTML
-- `GET /download/{job_id}` — returns the cleaned CSV for download
-
-**Frontend (single HTML page)**
-- Drag-and-drop CSV upload
-- Live progress indicator as each of the four agents completes
-- Report rendered inline when the pipeline finishes
-- Download button for the cleaned CSV
-
-**Pipeline changes**
-- Refactor progress output from `rich` console to emitted events so the SSE endpoint can forward them to the browser
-- In-memory job store (job_id → status, progress, output paths) — no database required
 
 ## File Structure
 
@@ -100,9 +89,13 @@ data-quality-pipeline/
 │       │   ├── validator.py
 │       │   ├── repairer.py
 │       │   └── reporter.py
+│       ├── jobs.py
 │       ├── models.py
 │       ├── pipeline.py
+│       ├── server.py
 │       └── tools.py
+├── static/
+│   └── index.html
 ├── tests/
 │   ├── conftest.py
 │   ├── test_profiler.py
@@ -110,6 +103,8 @@ data-quality-pipeline/
 │   └── test_validator.py
 ├── .env.example
 ├── .python-version
+├── docker-compose.yml
+├── Dockerfile
 ├── Makefile
 ├── pyproject.toml
 └── uv.lock

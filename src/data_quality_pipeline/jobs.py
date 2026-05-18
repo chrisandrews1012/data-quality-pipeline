@@ -14,6 +14,7 @@ def create_job() -> str:
         "events": [],
         "output_path": None,
         "report_path": None,
+        "tmp_dir": None,
         "error_message": None,
     }
     return job_id
@@ -27,11 +28,12 @@ def set_running(job_id: str) -> None:
     _jobs[job_id]["status"] = "running"
 
 
-def complete_job(job_id: str, output_path: str, report_path: str) -> None:
+def complete_job(job_id: str, output_path: str, report_path: str, tmp_dir: str) -> None:
     _jobs[job_id].update({
         "status": "complete",
         "output_path": output_path,
         "report_path": report_path,
+        "tmp_dir": tmp_dir,
     })
 
 

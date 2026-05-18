@@ -81,11 +81,11 @@ def run_pipeline(
         lambda: run_validator(profile),
         "[cyan]Agent 2/4: Validating dataset...",
     )
-    status = "FAILED" if not validation.passed else "PASSED"
+    status = "Critical issues found" if not validation.passed else "No critical issues"
     emit(
         f"Validator complete: {status} | "
         f"{len(validation.rules_applied)} rules applied | "
-        f"{validation.failure_count} failures"
+        f"{validation.failure_count} findings"
     )
 
     # Agent 3: Repair

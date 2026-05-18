@@ -16,19 +16,18 @@ reporter_agent = Agent(
 
     Structure the report exactly as follows:
 
-    # Data Quality Report — {dataset_name}
+    # Data Quality Report: {dataset_name}
 
     ## Executive Summary
     3-4 sentences in plain English. No jargon. Suitable for a non-technical
-    stakeholder. Summarise what was found and what was done.
+    stakeholder. Summarise what was found and what was done. Italicize the
+    dataset name when you reference it, e.g. *round32_data*.
 
     ## Dataset Overview
     A markdown table with: row count, column count, duplicate rows,
     total nulls, columns profiled.
-    Note: total nulls reflects the raw input before any repairs. Some repairs
-    (such as coercing string columns to numeric) may create additional nulls
-    during processing before imputing them. If the repairs section shows more
-    nulls imputed than the overview reports, explain this in the Executive Summary.
+    For total nulls: use only the raw null count from the profile as it
+    existed before any repairs were applied.
 
     ## Column Profile
     A markdown table with one row per column showing: name, inferred type,
@@ -55,9 +54,25 @@ reporter_agent = Agent(
     Bullet list of issues that could not be automatically repaired
     and require manual review. If none, write "None. All issues resolved."
 
+    ## Before You Use This Data
+    A short paragraph reminding the reader that automated repairs involve
+    judgment calls. Imputed values are statistical estimates, not ground truth.
+    For any high-stakes use (financial analysis, medical data, legal records,
+    model training) the repairs applied should be reviewed manually before
+    the cleaned dataset is treated as reliable. Point the reader to the
+    Repairs Applied section for a full list of what was changed.
+
     ## Before vs After
     A comparison table showing key metrics before and after repair:
     row count, null count, duplicate count.
+    For null count before: use only the raw null count from the profile, not
+    including any nulls created during repair.
+    If any nulls were created during repair (e.g. from string-to-numeric
+    coercion), add a plain-English note directly below the table explaining
+    how many additional nulls appeared during processing and why, e.g.
+    "2 additional nulls appeared during repair when column X64PD was converted
+    from text to numeric. Entries that could not be parsed as numbers were set
+    to null and then imputed."
 
     ## Recommendations
     3-5 bullet points for the data owner on how to prevent these issues

@@ -1,4 +1,5 @@
 import asyncio
+import shutil
 import tempfile
 import os
 from concurrent.futures import ThreadPoolExecutor
@@ -6,6 +7,7 @@ from pathlib import Path
 
 import markdown as md
 from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi.background import BackgroundTasks
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 
 from .jobs import append_event, complete_job, create_job, fail_job, get_job, set_running
@@ -47,11 +49,11 @@ async def run(file: UploadFile):
                 report_path=report_path,
                 progress_callback=lambda msg: append_event(job_id, msg),
             )
-            complete_job(job_id, output_path, report_path)
+            complete_job(job_id, output_path, report_path, tmp_dir)
         except Exception as e:
             fail_job(job_id, str(e))
 
-    asyncio.get_event_loop().run_in_executor(_executor, run_job)
+    asyncio.get_running_loop().run_in_executor(_executor, run_job)
 
     return {"job_id": job_id}
 
@@ -96,10 +98,13 @@ async def report(job_id: str):
 
 
 @app.get("/download/{job_id}")
-async def download(job_id: str):
+async def download(job_id: str, background_tasks: BackgroundTasks):
     job = get_job(job_id)
     if not job or job["status"] != "complete":
         raise HTTPException(status_code=404, detail="File not ready.")
+
+    if job["tmp_dir"]:
+        background_tasks.add_task(shutil.rmtree, job["tmp_dir"], True)
 
     return FileResponse(
         job["output_path"],
