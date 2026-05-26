@@ -1,4 +1,7 @@
+import logging
 import sys
+import time
+from pathlib import Path
 from typing import Callable
 
 from dotenv import load_dotenv
@@ -11,6 +14,7 @@ from .agents.repairer import run_repairer
 from .agents.reporter import run_reporter
 from .agents.validator import run_validator
 from .invariants import (
+    InvariantViolation,
     assert_invariants,
     check_profile_invariants,
     check_repair_invariants,
@@ -21,6 +25,14 @@ from .tools import load_dataframe
 
 load_dotenv()
 console = Console()
+logger = logging.getLogger("data_quality_pipeline")
+
+if not logger.handlers:
+    Path("logs").mkdir(exist_ok=True)
+    _handler = logging.FileHandler("logs/pipeline.log")
+    _handler.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s"))
+    logger.addHandler(_handler)
+    logger.setLevel(logging.DEBUG)
 
 
 def run_pipeline(
@@ -74,25 +86,43 @@ def run_pipeline(
         ))
 
     input_df = load_dataframe(input_path)
+    pipeline_start = time.monotonic()
+    logger.info("Pipeline started: input=%s", input_path)
 
     # Agent 1: Profile
-    profile = run_with_progress(
-        lambda: run_profiler(input_path),
-        "[cyan]Agent 1/4: Profiling dataset...",
-    )
-    assert_invariants(check_profile_invariants(profile, input_df), "Profiler")
+    t = time.monotonic()
+    try:
+        profile = run_with_progress(
+            lambda: run_profiler(input_path),
+            "[cyan]Agent 1/4: Profiling dataset...",
+        )
+        assert_invariants(check_profile_invariants(profile, input_df), "Profiler")
+    except InvariantViolation:
+        logger.error("Profiler invariant violation", exc_info=True)
+        raise
+    logger.info("Profiler: rows=%d cols=%d duplicates=%d (%.1fs)",
+                profile.row_count, profile.column_count, profile.duplicate_row_count,
+                time.monotonic() - t)
     emit(
         f"Profiler complete: {profile.row_count} rows, "
         f"{profile.column_count} columns, {profile.duplicate_row_count} duplicates"
     )
 
     # Agent 2: Validate
-    validation = run_with_progress(
-        lambda: run_validator(profile),
-        "[cyan]Agent 2/4: Validating dataset...",
-    )
-    assert_invariants(check_validation_invariants(validation, profile), "Validator")
+    t = time.monotonic()
+    try:
+        validation = run_with_progress(
+            lambda: run_validator(profile),
+            "[cyan]Agent 2/4: Validating dataset...",
+        )
+        assert_invariants(check_validation_invariants(validation, profile), "Validator")
+    except InvariantViolation:
+        logger.error("Validator invariant violation", exc_info=True)
+        raise
     status = "Critical issues found" if not validation.passed else "No critical issues"
+    logger.info("Validator: %s | rules=%d findings=%d (%.1fs)",
+                status, len(validation.rules_applied), validation.failure_count,
+                time.monotonic() - t)
     emit(
         f"Validator complete: {status} | "
         f"{len(validation.rules_applied)} rules applied | "
@@ -100,18 +130,27 @@ def run_pipeline(
     )
 
     # Agent 3: Repair
-    repair = run_with_progress(
-        lambda: run_repairer(input_path, output_path, profile),
-        "[cyan]Agent 3/4: Repairing dataset...",
-    )
-    output_df = load_dataframe(output_path)
-    assert_invariants(check_repair_invariants(repair, input_df, output_df), "Repairer")
+    t = time.monotonic()
+    try:
+        repair = run_with_progress(
+            lambda: run_repairer(input_path, output_path, profile),
+            "[cyan]Agent 3/4: Repairing dataset...",
+        )
+        output_df = load_dataframe(output_path)
+        assert_invariants(check_repair_invariants(repair, input_df, output_df), "Repairer")
+    except InvariantViolation:
+        logger.error("Repairer invariant violation", exc_info=True)
+        raise
+    logger.info("Repairer: repairs=%d rows_dropped=%d unresolved=%d (%.1fs)",
+                repair.total_repairs, repair.rows_dropped, len(repair.unresolved),
+                time.monotonic() - t)
     emit(
         f"Repairer complete: {repair.total_repairs} repairs, "
         f"{repair.rows_dropped} rows dropped, {len(repair.unresolved)} unresolved"
     )
 
     # Agent 4: Report
+    t = time.monotonic()
     context = PipelineContext(
         input_path=input_path,
         output_path=output_path,
@@ -123,7 +162,10 @@ def run_pipeline(
         lambda: run_reporter(context, report_path),
         "[cyan]Agent 4/4: Writing report...",
     )
+    logger.info("Reporter: report=%s (%.1fs)", report_path, time.monotonic() - t)
     emit(f"Reporter complete: report saved to {report_path}")
+
+    logger.info("Pipeline complete: total=%.1fs", time.monotonic() - pipeline_start)
 
     if not progress_callback:
         console.print(Panel.fit(
