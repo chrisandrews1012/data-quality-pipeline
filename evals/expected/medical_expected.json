@@ -1,0 +1,29 @@
+{
+  "dataset_path": "data/raw/medical_messy.csv",
+  "description": "Synthetic medical records dataset. Tests: (1) sparse notes column (55% null) escalates to unresolved rather than being repaired, (2) bmi is typed as numeric not age despite containing human measurements, (3) no currency columns present.",
+  "known_facts": {
+    "row_count": 260,
+    "duplicate_row_count": 10,
+    "total_null_count": 169
+  },
+  "expected_column_types": {
+    "patient_id": "id",
+    "first_name": "text",
+    "age": "age",
+    "gender": "categorical",
+    "diagnosis": "categorical",
+    "bmi": "numeric",
+    "visit_date": "date",
+    "notes": "text"
+  },
+  "must_repair": {
+    "duplicate_rows": true,
+    "columns": {
+      "age": ["out_of_range"],
+      "diagnosis": ["mixed_case"],
+      "visit_date": ["date_format"]
+    }
+  },
+  "must_flag_unresolved": ["notes"],
+  "must_not_impute_mnar": true
+}

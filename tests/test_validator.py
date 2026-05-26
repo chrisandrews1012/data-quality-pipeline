@@ -1,5 +1,7 @@
 import pytest
 
+pytestmark = pytest.mark.llm
+
 from src.data_quality_pipeline.agents.validator import run_validator
 from src.data_quality_pipeline.models import (
     ColumnMissingness,

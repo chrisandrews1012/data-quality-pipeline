@@ -10,14 +10,21 @@ from .agents.profiler import run_profiler
 from .agents.repairer import run_repairer
 from .agents.reporter import run_reporter
 from .agents.validator import run_validator
+from .invariants import (
+    assert_invariants,
+    check_profile_invariants,
+    check_repair_invariants,
+    check_validation_invariants,
+)
 from .models import PipelineContext
+from .tools import load_dataframe
 
 load_dotenv()
 console = Console()
 
 
 def run_pipeline(
-    input_path: str = "data/raw/messy_data.csv",
+    input_path: str = "data/raw/hr_messy.csv",
     output_path: str = "data/processed/cleaned_data.csv",
     report_path: str = "docs/data_quality_report.md",
     progress_callback: Callable[[str], None] | None = None,
@@ -66,11 +73,14 @@ def run_pipeline(
             border_style="cyan",
         ))
 
+    input_df = load_dataframe(input_path)
+
     # Agent 1: Profile
     profile = run_with_progress(
         lambda: run_profiler(input_path),
         "[cyan]Agent 1/4: Profiling dataset...",
     )
+    assert_invariants(check_profile_invariants(profile, input_df), "Profiler")
     emit(
         f"Profiler complete: {profile.row_count} rows, "
         f"{profile.column_count} columns, {profile.duplicate_row_count} duplicates"
@@ -81,6 +91,7 @@ def run_pipeline(
         lambda: run_validator(profile),
         "[cyan]Agent 2/4: Validating dataset...",
     )
+    assert_invariants(check_validation_invariants(validation, profile), "Validator")
     status = "Critical issues found" if not validation.passed else "No critical issues"
     emit(
         f"Validator complete: {status} | "
@@ -93,6 +104,8 @@ def run_pipeline(
         lambda: run_repairer(input_path, output_path, profile),
         "[cyan]Agent 3/4: Repairing dataset...",
     )
+    output_df = load_dataframe(output_path)
+    assert_invariants(check_repair_invariants(repair, input_df, output_df), "Repairer")
     emit(
         f"Repairer complete: {repair.total_repairs} repairs, "
         f"{repair.rows_dropped} rows dropped, {len(repair.unresolved)} unresolved"
@@ -124,5 +137,5 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
-    input_path = sys.argv[1] if len(sys.argv) > 1 else "data/raw/messy_data.csv"
+    input_path = sys.argv[1] if len(sys.argv) > 1 else "data/raw/hr_messy.csv"
     run_pipeline(input_path=input_path)

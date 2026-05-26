@@ -1,9 +1,8 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from typing import Literal
 
 
 # Profiler Output 
-
 class ColumnProfile(BaseModel):
     name: str
     dtype: str
@@ -25,7 +24,6 @@ class ColumnProfile(BaseModel):
 
 
 # Missingness Analysis 
-
 class ColumnMissingness(BaseModel):
     column: str
     null_count: int
@@ -61,7 +59,6 @@ class DataProfile(BaseModel):
 
 
 # Validator Output 
-
 class ValidationRule(BaseModel):
     column: str
     rule_description: str
@@ -86,9 +83,13 @@ class ValidationReport(BaseModel):
     failures: list[ValidationFailure]
     summary: str
 
+    @model_validator(mode="after")
+    def _fix_failure_count(self) -> "ValidationReport":
+        self.failure_count = len(self.failures)
+        return self
+
 
 # Repairer Output 
-
 class RepairAction(BaseModel):
     column: str
     issue: str
@@ -121,9 +122,13 @@ class RepairReport(BaseModel):
     output_path: str
     summary: str
 
+    @model_validator(mode="after")
+    def _fix_total_repairs(self) -> "RepairReport":
+        self.total_repairs = len(self.actions)
+        return self
+
 
 # Pipeline Context (passed to Reporter) 
-
 class PipelineContext(BaseModel):
     input_path: str
     output_path: str

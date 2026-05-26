@@ -1,0 +1,29 @@
+{
+  "dataset_path": "data/raw/ecommerce_messy.csv",
+  "description": "Synthetic e-commerce orders dataset. Tests that the pipeline generalises to non-HR column names: price instead of salary, status instead of department, order_date instead of hire_date.",
+  "known_facts": {
+    "row_count": 312,
+    "duplicate_row_count": 12,
+    "total_null_count": 37
+  },
+  "expected_column_types": {
+    "order_id": "id",
+    "customer_email": "email",
+    "product": "categorical",
+    "price": "currency",
+    "quantity": "numeric",
+    "order_date": "date",
+    "status": "categorical",
+    "is_returned": "boolean"
+  },
+  "must_repair": {
+    "duplicate_rows": true,
+    "columns": {
+      "price": ["currency_symbols"],
+      "status": ["mixed_case"],
+      "order_date": ["date_format"]
+    }
+  },
+  "must_flag_unresolved": ["customer_email"],
+  "must_not_impute_mnar": true
+}

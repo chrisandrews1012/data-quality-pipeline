@@ -1,0 +1,313 @@
+order_id,customer_email,product,price,quantity,order_date,status,is_returned
+0d3be8ee-03cc-4f9b-a146-0c5a299c858d,@nodomain.com,Monitor,209.03,4.0,02/11/2025,Delivered,False
+0316909e-3bbb-49ea-a894-8c893b618676,lguerra@example.com,Webcam,350.68,10.0,2024-03-29,Cancelled,False
+b247801d-ac77-4055-a076-e64b25a52d39,lewiselizabeth@example.com,Webcam,54.93,8.0,2025-04-10,Refunded,True
+2edd27f7-df7c-458b-ae21-6a55a93e0f6f,kimberly67@example.org,Wireless Headphones,61.82,10.0,2023-07-06,Refunded,False
+831ef5c3-79c9-4db6-b7a0-b7853479b1f0,fowlermaria@example.net,Mechanical Keyboard,499.93,1.0,2024-06-04,Refunded,True
+245448c8-989b-49dc-b95f-e8a0060c8804,dwilliams@example.org,Charger,400.99,4.0,2024-07-30,Pending,True
+f7630f70-2518-4807-aa9d-cb87ad47f8fa,coxdeanna@example.net,Monitor,$496.54,7.0,2025-10-20,Delivered,False
+9973cf5c-09c9-4592-8142-05c6fff7ba0d,lisafuentes@example.com,Monitor,59.83,5.0,2025-06-07,Shipped,True
+40852477-1ac7-446c-a566-e133e1edcf3e,xrojas@example.com,Monitor,266.96,10.0,2024-07-10,Shipped,False
+a997f351-754a-49cd-a5cf-edfa5a9196f0,gwilcox@example.org,External SSD,162.8,3.0,2024-12-28,Pending,False
+a8ce4082-f00e-40f8-be3d-856b978b6641,thomasgutierrez@example.org,Webcam,309.11,5.0,2023-08-24,shipped,False
+9bb183e1-1570-466b-82b3-8755cd37880e,carlroy@example.com,USB Hub,23.49,10.0,2023-06-07,Cancelled,True
+190dcc94-b35d-4f68-a0d6-c1fe4282c843,Stephanie,Mechanical Keyboard,$304.23,10.0,"July 15, 2025",Shipped,True
+f662222e-4dc4-4c8c-b70b-a858a53fddc9,courtneyrice@example.com,Wireless Headphones,483.17,5.0,2025-06-29,Shipped,False
+98d7a0c1-6ba4-4827-b1a1-6a1b6384c698,fostershelly@example.com,External SSD,91.23,2.0,2024-05-31,Cancelled,True
+f47aebdd-597a-4ecf-bcf0-0fecb91ee9e5,christopher13@example.com,External SSD,450.76,9.0,2023-12-27,cancelled,False
+84c46f72-6fbb-48f3-87ff-e38e69b52fc2,reedjanet@example.net,Webcam,462.86,5.0,2025-02-04,Pending,True
+6709ab4c-5be0-4057-907e-897c93ef0704,johnlivingston@example.com,Wireless Headphones,468.92,4.0,2024-07-08,Shipped,False
+3f1efd5b-7dca-4202-b34e-d4fa24f8c385,,Charger,463.81,7.0,2023-06-02,Pending,True
+34c411c3-5f38-4d79-8671-ce23a55741cb,jose88@example.org,Laptop Stand,328.27,8.0,2024-07-14,refunded,False
+ab1031d0-f646-41f4-8a09-7c976bf46c69,duranashley@example.com,Charger,110.91,9.0,2024-06-01,Cancelled,False
+39d7c140-2ce6-48fe-b3d6-3426a7d0e597,greendawn@example.org,Mouse Pad,36.63,1.0,2024-05-27,Refunded,True
+e25a7605-aec6-4024-9bd8-6d40fc891b4a,jrosario@example.org,Wireless Headphones,481.38,2.0,2023-12-05,Refunded,False
+126e90a3-f3a7-4b00-b5b2-242702f04abf,john19@example.org,Phone Case,79.81,7.0,2025-12-17,pending,False
+2dd11155-b793-4e67-980a-3de7de9943a6,nelsonsteven@example.net,Wireless Headphones,12.13,8.0,2024-11-24,Pending,False
+43fb9fbc-d89c-46b2-930f-27b2cf28f65e,jessicaharris@example.net,USB Hub,134.01,3.0,2025-05-07,cancelled,True
+0e7e8994-a337-45a6-9b00-47539d2f4116,joshua60@example.org,Charger,162.97,4.0,16-08-2023,Pending,False
+f0ce5835-05c6-4f07-98d5-563dab2cd31e,nkelly@example.org,Phone Case,252.6,6.0,2024-11-17,Cancelled,False
+7124c205-cd62-4a7f-977a-83345d866b34,williamsdavid@example.net,Mouse Pad,477.42,1.0,2024-05-03,Shipped,True
+11a3199d-c6cf-4fe5-adee-65ef2119c05c,taylorhart@example.org,Mouse Pad,350.74,7.0,2025-11-03,Delivered,False
+113db17d-30cb-497d-8fef-792866836886,scottrodriguez@example.net,Monitor,$361.14,6.0,2023-07-22,Pending,False
+0cb91cbe-92f4-4d21-8b9f-684a67f186a2,aevans@example.org,Charger,$392.18,8.0,"December 20, 2023",Shipped,False
+b991e961-f87f-4a4d-bf3f-407226437a8e,blakehart@example.net,Charger,109.04,1.0,2023-07-06,Cancelled,False
+aa50b96f-e90f-4651-aac2-6ae07c2c6a87,rushdustin@example.com,Phone Case,78.25,9.0,2023-07-24,Refunded,True
+95e8c93e-15a0-48ae-bb99-6870a1320b9d,dianebaldwin@example.net,Phone Case,23.64,2.0,2024-07-25,Cancelled,False
+8d2f29e7-15c2-481a-b513-4107e5174ebd,Joseph,Webcam,,9.0,2026-02-27,Delivered,True
+907a70c3-1012-4037-b64c-e4228c38fb29,montgomerytyler@example.net,Wireless Headphones,$488.36,1.0,2024-09-05,refunded,True
+15c891ff-3add-4527-a494-6d15b17dd255,williamsdana@example.org,External SSD,77.19,2.0,2024-07-11,Cancelled,False
+830e07bc-1e39-4f10-92bd-4acefaecbd38,vmartin@example.org,Webcam,57.73,2.0,03/13/2026,Refunded,True
+c9472c59-c731-4fda-a2bf-b10e7a1a3293,yduffy@example.net,Mouse Pad,495.33,10.0,2024-05-25,shipped,False
+76a399f8-a1fb-48f1-9f25-a7fe1b2a9134,moorecarla@example.com,Laptop Stand,41.19,,2024-03-28,Delivered,False
+f954dd9e-9f31-4305-8f85-f59b47a7fde0,molly02@example.net,Webcam,384.66,8.0,2025-11-23,Shipped,True
+4b80b828-e3ab-4283-82ae-35d243d87a97,cranetyler@example.org,Charger,325.17,1.0,2026-02-01,Refunded,False
+a997f351-754a-49cd-a5cf-edfa5a9196f0,gwilcox@example.org,External SSD,162.8,3.0,2024-12-28,Pending,False
+cf7eda11-2df8-4c66-9627-d2b875526e31,eross@example.org,Monitor,449.42,7.0,2024-06-21,cancelled,False
+1f1d7202-1f3d-4788-9c2b-94eb47955cd6,iwilkerson@example.net,USB Hub,483.9,10.0,2024-01-30,Delivered,False
+b2258e57-77cc-40da-9218-58f4d73c8a36,dortega@example.com,Mechanical Keyboard,314.31,10.0,2024-09-03,Shipped,False
+3d3a1902-99ea-4514-941c-18d563825046,osolomon@example.net,Wireless Headphones,162.79,7.0,2026-05-05,delivered,False
+bb69e1f0-9d37-4731-bf01-fe8010fe52d4,leetina@example.com,Wireless Headphones,45.83,9.0,2024-04-05,Cancelled,False
+ae9c78bd-f8cd-4ec3-85b9-c09a26edf1bd,davidjennifer@example.net,USB Hub,87.18,8.0,2025-12-08,Pending,False
+cdf3da53-87cf-494b-8690-76ac83688d07,andrewponce@example.org,Mouse Pad,264.11,2.0,2025-04-03,delivered,False
+8371f5f2-fa86-44df-a743-314b1d3a2005,welchkristin@example.org,Phone Case,351.82,1.0,2025-01-28,Cancelled,True
+c7790c37-eced-4301-82f8-03f436ad61dd,ronald79@example.net,Charger,326.34,8.0,2026-04-15,Refunded,False
+26da053e-e551-450e-b657-c7bb78e19be6,simmonsalbert@example.net,Charger,144.74,8.0,2023-10-06,Shipped,False
+041a7212-a3ca-4d60-ba87-92bf24f432ad,vroman@example.net,Laptop Stand,62.26,3.0,2023-10-26,Delivered,True
+6bca9b3f-18af-466c-b555-d6ae15866ffb,cmcneil@example.org,USB Hub,376.26,5.0,2024-02-06,delivered,True
+f192ccb5-d50d-4dea-8a20-ed96007e0712,jacob60@example.com,Wireless Headphones,25.12,3.0,2024-01-20,pending,True
+643ab9e2-12b9-4a01-800b-b5f97d652135,pcompton@example.org,Charger,128.67,,2024-01-26,Pending,False
+983fd973-59af-4769-a486-737d8ff4ef93,,Mechanical Keyboard,,,2024-11-16,Refunded,True
+a4a915d0-2ad6-4ce9-9ea7-722864f54969,charlesmason@example.com,Monitor,28.1,1.0,2025-01-18,Refunded,True
+4886f572-7386-4561-8eb7-1a8f3bfe938f,morrisjoseph@example.org,Monitor,323.22,10.0,2025-02-26,Delivered,True
+6201a9d3-69ac-4f03-9ee0-a843bfe98f8c,nreese@example.com,Mechanical Keyboard,491.39,6.0,17-03-2024,Shipped,True
+2a44bf93-cb83-49fb-aa81-ad63cf9d5d05,Nicole,Mechanical Keyboard,393.71,,2023-11-16,shipped,True
+7d920a56-623c-40ce-9bd9-d912112d4095,kevinhood@example.org,Laptop Stand,111.85,8.0,2026-04-29,Refunded,True
+ddba8547-833e-469f-9f4a-ebeb133ad73d,shanegreen@example.net,Monitor,,2.0,2026-03-27,Cancelled,False
+0b43b6dd-001a-4fd3-a74c-00f42a43f047,schmidtrichard@example.org,Mechanical Keyboard,252.88,4.0,2023-11-16,Delivered,True
+48866d48-fcfd-46d1-a8e7-ed23456b312c,robert04@example.net,Laptop Stand,34.23,7.0,2025-02-04,Cancelled,True
+53ec4b93-adff-4165-8737-fed1efb82825,yjackson@example.com,Charger,460.75,5.0,2023-09-29,Shipped,False
+4990c224-a1db-4d89-a1ac-6036c05d7b62,ggarcia@example.net,Wireless Headphones,237.37,1.0,2024-01-05,delivered,True
+a2f3bd5d-f04f-4294-9c23-edee2a7147ea,henryvickie@example.net,Webcam,432.0,8.0,2025-10-04,Delivered,True
+211c70cf-4995-4399-84aa-eac137dc76fb,raymondrangel@example.com,Charger,490.28,2.0,2023-08-22,Refunded,False
+3d9a8079-abd0-47fb-9292-618550e40d54,qjones@example.com,Mechanical Keyboard,107.95,8.0,2025-10-01,Delivered,True
+0dec6823-fb5c-4d56-98f9-2deafd4bd030,alexisgarrett@example.com,Phone Case,74.06,3.0,2024-09-09,Refunded,True
+e3aad2d2-1661-492b-9437-6fb5144ad2a4,ljuarez@example.org,Phone Case,446.72,2.0,2023-10-23,Cancelled,True
+63e08fb2-18fa-429e-bcf7-4354ecd2073d,robert20@example.net,Charger,$456.28,3.0,2026-05-02,Pending,True
+306c3a5a-33ad-4a6f-96de-3dda8194455d,jameswhite@example.net,Mechanical Keyboard,189.44,8.0,2024-04-07,Shipped,True
+470b4fad-7f86-4d5f-8fe3-21ecc08a58d7,david88@example.net,Mouse Pad,494.81,1.0,2025-10-08,shipped,True
+3898d190-f9eb-4acc-8cb1-e29c658cda14,hawkinsdean@example.com,Laptop Stand,280.0,1.0,2023-10-31,Refunded,True
+b48bb075-0c9c-40ef-9677-74ef6eb4fff8,igonzalez@example.com,Monitor,125.03,4.0,2023-12-23,Shipped,False
+998648e0-13d5-416f-b2c3-2444a48c1d5c,@nodomain.com,USB Hub,356.09,9.0,2024-04-23,Cancelled,False
+2a23534a-1a0f-4ed5-beb3-6d43ba8e3338,bad@,Monitor,371.64,4.0,2025-10-13,Cancelled,True
+5d4b69e0-02f5-4c3b-a1f7-f5d6a9c22075,schmidtchad@example.com,Monitor,138.96,9.0,2024-01-01,refunded,True
+0eba0ea8-4770-4087-96e6-fec353b97377,ronaldjones@example.org,External SSD,,2.0,2025-04-20,Shipped,True
+5e8766ed-88da-4401-ab40-13ef254b0c4e,bad@,Laptop Stand,421.57,5.0,2025-06-05,Cancelled,True
+012664f6-1a32-4537-897a-5942fdaf4513,oandrade@example.com,Webcam,69.24,6.0,2026-02-21,Pending,False
+c76c603f-e7e8-49f6-8a22-7385459c945c,josephanderson@example.com,Mouse Pad,$393.32,4.0,2025-12-12,Cancelled,True
+ef1919e4-13e9-40bc-b876-1dc7d534c087,pamela27@example.org,Phone Case,342.82,9.0,2026-03-05,delivered,False
+797b1538-e5a1-4b79-bcc0-fd985d3f69ce,welchjohn@example.net,External SSD,424.3,2.0,2025-09-12,Cancelled,False
+d7e730ed-2358-499f-ae41-77ed92435409,aimeehall@example.org,Wireless Headphones,42.21,10.0,2023-12-27,Delivered,True
+f11425e4-09e3-43c3-ac10-514f38c2c39e,shelley08@example.org,Charger,95.56,5.0,2025-11-28,Pending,False
+64a36674-81aa-4cf0-ab72-de07ebbf2dac,shanemoore@example.org,USB Hub,$212.45,9.0,2026-05-16,Refunded,False
+5cc0ff06-6ba9-4d01-b7e4-9f36568a8c29,zgonzalez@example.com,Mechanical Keyboard,51.39,9.0,2025-08-13,Shipped,False
+eb2b50b5-b21a-40cc-9348-42396bcb5706,agriffin@example.net,External SSD,151.05,3.0,2024-07-23,shipped,True
+8d118e37-8172-4a07-bbab-27f604b8157d,williesanchez@example.com,Mechanical Keyboard,23.71,4.0,2023-09-19,Delivered,True
+3b9d226a-1008-49d1-85ac-b0685ae82b36,@nodomain.com,Phone Case,119.88,10.0,2024-05-11,Delivered,True
+fc394724-9fc2-40a1-bb8f-2ab53451d013,mendozadenise@example.net,Mouse Pad,203.11,8.0,2023-08-26,Cancelled,True
+f954dd9e-9f31-4305-8f85-f59b47a7fde0,molly02@example.net,Webcam,384.66,8.0,2025-11-23,Shipped,True
+4b354e93-4b3e-40b7-9743-5571c79dbc12,ashley54@example.net,Webcam,123.37,8.0,2024-03-06,Cancelled,True
+d75d6769-aa4c-4c60-95a0-cce60e2ec40a,qharrell@example.com,External SSD,390.48,10.0,2025-03-12,Pending,True
+e7b227e9-4665-4a19-9d10-6a37e58376fb,gthomas@example.com,Phone Case,486.21,2.0,2024-01-09,cancelled,True
+fa529ba3-fe3b-4ada-bcf2-0724d953ee26,tcastillo@example.org,Mouse Pad,459.23,8.0,2023-10-30,Pending,True
+7912ef4a-efae-4d4e-95fa-8b65fa6672cd,robertscharles@example.net,Mouse Pad,172.42,10.0,2026-04-21,delivered,True
+033ae330-08af-4ded-b6c3-38fa636a5479,bdickerson@example.net,Webcam,41.74,5.0,24-01-2024,Shipped,True
+cda6c6fd-bd68-4167-a693-4036d17e4497,jamesvasquez@example.net,Monitor,12.0,7.0,2023-06-26,Refunded,False
+42343354-f22d-4882-91a8-9b37ad0c9bb6,ghernandez@example.net,Mouse Pad,$396.67,6.0,2024-11-18,pending,False
+7cbd1f5a-e28a-4604-a5f4-298618189af4,veronicawall@example.org,Charger,478.68,8.0,2025-07-08,Delivered,False
+2ffa1f86-be84-4f95-bbca-6b41736619a2,diazjulie@example.net,Charger,$257.93,6.0,2025-12-18,Delivered,True
+f9061ffb-9621-49d3-a0a8-79324c99a6af,muellerbilly@example.net,Charger,493.2,8.0,2025-01-22,Shipped,False
+90292165-2fa1-4d65-bf93-3587442995fa,benjamin59@example.net,Webcam,217.64,1.0,2025-12-21,Delivered,False
+d77b26d3-3c71-4896-a79a-95aa42a78500,shirleyreese@example.com,USB Hub,171.32,3.0,"December 22, 2023",Refunded,False
+d1e0014e-4bdf-4851-8c5c-d43bf53e2c38,kyle95@example.net,Phone Case,157.74,8.0,2023-05-27,Delivered,False
+56be6d2a-09b1-41fb-97ff-c8cd4105d9f9,virginiagray@example.org,Mechanical Keyboard,$90.89,1.0,2023-07-20,Pending,True
+56d050cd-6760-4367-83fe-b17bfe7b8ae4,ugonzalez@example.org,Laptop Stand,118.02,4.0,2025-07-25,Cancelled,True
+73ccef03-46f5-41b4-b156-d1ad330c16a3,promero@example.net,Phone Case,275.36,9.0,2024-12-19,Delivered,True
+340252a6-34aa-4a20-bf1f-b2411b6bf273,johnsonstacy@example.net,Mechanical Keyboard,407.78,7.0,08/29/2023,Pending,False
+90fb2d7d-6e40-4885-8538-69eb5187b6ec,jimenezalexa@example.org,Laptop Stand,498.09,2.0,2025-09-20,Shipped,True
+8fa624f7-1fab-4884-a29a-aceaf49c9eba,omarmack@example.com,Phone Case,42.35,8.0,2025-11-11,Delivered,True
+5c9bcf35-873b-4078-b3b7-a50df373ca53,hannahsloan@example.net,Phone Case,146.42,7.0,2024-04-16,Delivered,False
+099950d8-36f6-45cc-81e7-4ef5e8e25d94,hamiltonchad@example.org,Phone Case,56.11,10.0,2025-01-18,pending,True
+310afae0-81f8-49df-bce9-a9afb25201e9,kevin92@example.net,Charger,,4.0,2023-11-12,Refunded,True
+f7d17ebd-df75-4883-9078-84b7d9435541,martinezronald@example.com,Wireless Headphones,51.39,7.0,2026-04-21,Refunded,False
+f0836085-2789-4059-86e5-0df2e5a3863e,douglas27@example.org,Wireless Headphones,397.15,8.0,2025-08-21,Delivered,True
+171fddd2-7e36-4e8a-b215-9ff5dd5038a4,ortizkathryn@example.org,USB Hub,57.94,4.0,2026-01-05,Delivered,False
+368dc5bf-b15a-4cf2-be95-08cb3286dfae,bad@,External SSD,379.23,4.0,2025-01-23,Delivered,True
+32830689-830a-419e-943a-51809880e88b,pmullins@example.com,External SSD,47.46,9.0,2023-08-04,Cancelled,False
+ff18fe33-5534-4034-a800-9d9073f6e53d,jsimmons@example.org,Phone Case,242.62,8.0,2024-02-17,Pending,False
+6c6fba96-d974-4ec5-8003-ff33280da853,ngibson@example.com,Webcam,261.2,3.0,2024-12-14,Cancelled,False
+430b91ed-2954-4a5c-b81e-54dd1c0502c6,notanemail,Phone Case,278.65,1.0,2024-04-24,Pending,True
+43c71b9a-bd87-4865-97b6-fb7ebfeaa155,kpoole@example.net,External SSD,206.8,5.0,2023-06-20,Shipped,False
+f8b44bc2-86ee-4b4f-b41e-74e6f09f5791,virginiayu@example.com,Phone Case,85.72,9.0,2024-01-13,Pending,True
+def88334-e647-4b8f-b4e6-9a5d0dd27a65,zsanders@example.org,Wireless Headphones,368.26,5.0,2024-11-03,Refunded,False
+81247dd4-bcbc-48a3-9eef-9b8bed5ec904,dustincampbell@example.net,Phone Case,337.74,2.0,2023-11-30,Shipped,True
+9b8e9a82-0da9-444a-9084-c63f7b949e54,Amy,External SSD,454.06,8.0,2025-06-18,cancelled,True
+76997819-4bd4-421c-a1e3-81f9fb1b0902,thomascassandra@example.com,Laptop Stand,330.12,1.0,2023-06-01,Pending,True
+17448971-d3ec-4751-9cbb-b757b6e24482,george08@example.org,Wireless Headphones,414.74,2.0,2024-04-06,Cancelled,False
+0898a37e-1815-407d-8544-152f9b6d4eb5,veronicacline@example.com,Monitor,483.89,1.0,2025-02-27,Refunded,False
+2e698e5f-a9e2-4a40-99f2-d5ff2c84fe81,fishercraig@example.net,Wireless Headphones,321.84,,2023-06-09,Delivered,True
+ec66a787-95e7-41d1-b731-af10506bf2ef,notanemail,Monitor,215.37,9.0,"June 30, 2025",Pending,False
+4d4ca9c7-67c9-4fb9-b365-06ecae7c8f09,robertbennett@example.org,Phone Case,$460.38,,2025-12-01,Cancelled,False
+c9a61015-334f-4a84-a1b9-9161cc21a87a,kylebrown@example.com,Mechanical Keyboard,310.12,1.0,2024-10-16,Pending,True
+c0563eed-9389-4b39-a1a2-b7abde3b3ddd,carterdaniel@example.net,Monitor,312.95,1.0,2024-11-18,Cancelled,True
+c4ecbfa2-5221-4bda-a90b-a8875e36d760,nyork@example.net,Webcam,479.26,10.0,2023-06-28,pending,False
+df703017-04c9-478d-82b3-359986048719,mfrank@example.org,Monitor,244.51,3.0,09/22/2025,Refunded,True
+b578909c-4a75-41f2-bd57-5d17acfb2d5e,steven71@example.net,Wireless Headphones,,8.0,2023-12-30,Cancelled,True
+9474031b-7f26-444b-9828-9fcd59a54a7b,fjones@example.com,External SSD,$296.92,8.0,2024-10-26,Delivered,False
+8c0d0033-fc23-45a9-b8fd-d20854348156,john43@example.com,Webcam,344.33,9.0,2023-12-12,Refunded,False
+b8c9817a-f8be-4831-b237-e45acd02c5e1,vford@example.org,Laptop Stand,176.62,1.0,2025-07-28,Pending,True
+4b0b708d-1594-411e-8264-ab93bacf0bd8,qmurray@example.org,Mechanical Keyboard,99.22,3.0,2025-07-20,Delivered,False
+190dcc94-b35d-4f68-a0d6-c1fe4282c843,Stephanie,Mechanical Keyboard,$304.23,10.0,"July 15, 2025",Shipped,True
+b239f3c7-174c-47a2-9d02-de92a49636a2,april25@example.org,Mechanical Keyboard,83.94,3.0,2024-12-29,Shipped,True
+f1a4bf3b-3bcb-4bce-a178-70d5e24c6c60,mmartinez@example.net,USB Hub,490.32,2.0,2025-08-28,Pending,False
+7ee5e857-3489-4498-9143-40ff813fb5cd,larrywilkins@example.org,Webcam,363.12,8.0,10/16/2024,shipped,False
+5ffee55e-1fc7-4f73-a3da-317741cb712f,cgray@example.org,USB Hub,120.7,2.0,2025-10-27,Delivered,True
+a268aa87-2607-479d-a050-914a9d33a01c,stephanie95@example.com,Mechanical Keyboard,386.42,3.0,2023-10-07,Shipped,False
+369ee145-08ad-494c-a4fd-4172e5c69b8e,vgarrett@example.org,Wireless Headphones,443.08,1.0,2025-12-25,Delivered,True
+42b50c7c-83e0-4b8d-94f3-318ef50b7e1d,justinlewis@example.net,External SSD,99.63,5.0,02/03/2024,Shipped,True
+e9729f3f-0c89-4001-bc4e-a6034944f2ce,georgeperry@example.com,Monitor,270.22,4.0,2024-04-16,Delivered,False
+16fa1421-d129-4067-83a0-8f0617420e94,reginaldwilliams@example.org,Monitor,30.67,2.0,2024-04-18,Refunded,False
+7b7fec4b-0331-4ead-a229-30ae9158d4a8,tuckerteresa@example.org,Mouse Pad,105.9,6.0,2025-06-22,Pending,False
+b5af4c8a-989d-481c-a330-66bd1b1466f6,jeff55@example.org,Charger,47.43,7.0,2023-07-13,Delivered,True
+086d06d8-2504-4c3d-abea-714de9298400,rodriguezchristy@example.org,Mouse Pad,184.74,5.0,2024-06-06,Cancelled,True
+b8be7212-d750-47b1-a87a-bf5b850203ab,stonemichael@example.com,Laptop Stand,414.27,5.0,2025-12-03,Cancelled,True
+4cdd2055-930d-4eaf-94f4-733f3e7d1bfb,ugolden@example.com,Phone Case,409.89,3.0,2024-04-05,pending,True
+e04b0dce-e5d0-4a4d-bf75-95b53b3bf4bf,klong@example.org,Mouse Pad,426.29,5.0,2026-04-01,Cancelled,True
+a3882a8a-aa81-43cf-9a66-d71a257185b5,smcdonald@example.net,Mouse Pad,$477.05,5.0,05/06/2025,Refunded,False
+fc7383bf-9e6f-42b7-80e5-e81305fbec3a,cmarshall@example.net,USB Hub,346.5,9.0,2025-09-26,Shipped,True
+9b750362-26bc-4858-85d6-d5e9b12e1de2,markflores@example.com,Monitor,489.27,8.0,2025-10-01,Pending,False
+1b29fc99-c6c8-4e2b-88c6-14b27b8444d1,wrightjoshua@example.org,Phone Case,457.92,9.0,2024-12-02,Delivered,True
+756b7289-8dd6-4cb9-9685-d62404fcd555,ywarner@example.com,Webcam,110.13,10.0,2024-12-13,Refunded,True
+d3b9cd98-3bf2-4108-ab46-159a43b5e670,Karl,Wireless Headphones,488.01,8.0,2024-10-18,Delivered,True
+3d93fd4c-804c-45d6-8aff-dcd13678bc8d,jordan62@example.org,Laptop Stand,66.51,8.0,2026-02-16,cancelled,False
+a0dce604-0590-4fd1-979d-a6a362948bfe,,Mechanical Keyboard,51.85,9.0,2024-10-30,Pending,True
+7e834904-fc17-4498-b87e-4e2b537d9128,justinmontgomery@example.org,Charger,486.94,10.0,2023-07-12,Refunded,True
+5aecfabb-4afa-4e69-8a05-9e92d3a43d90,,Monitor,295.48,7.0,2026-01-06,Cancelled,False
+721888ff-4a3a-4f99-b4b3-ff60c26e7a42,josephlara@example.com,Phone Case,377.24,3.0,2023-07-05,Cancelled,True
+721dcfa1-ee9f-485d-8513-1e935b2d18e2,martinezjennifer@example.com,Monitor,33.71,6.0,2025-09-25,Delivered,False
+a0b55864-0cff-4054-8efb-a442738e0b77,simserin@example.com,Webcam,45.54,4.0,2024-03-10,cancelled,True
+c92bdd5a-a3ec-4d32-a907-db86e4219307,christinemendez@example.org,Phone Case,104.27,2.0,2025-11-19,Shipped,False
+35c86b78-74f8-46f2-b2ae-556fbdfaea88,philipfarmer@example.org,Wireless Headphones,$411.22,7.0,2025-08-02,Delivered,True
+a71f11b2-f9ee-4bc8-bd1e-6912bd313bee,richard34@example.com,Phone Case,339.35,5.0,2025-01-25,Delivered,True
+450f002a-c83b-4269-aa5c-6817df0c92b9,acain@example.org,Wireless Headphones,350.94,7.0,2025-05-01,delivered,False
+f192ccb5-d50d-4dea-8a20-ed96007e0712,jacob60@example.com,Wireless Headphones,25.12,3.0,2024-01-20,pending,True
+d039b963-6a4d-46e6-a43d-ede7a5c8e5c5,williambrown@example.net,Charger,252.91,3.0,2023-07-18,Shipped,False
+ed3a32a8-6af2-4748-8d95-9c31fe8ad4a1,bad@,Charger,$414.98,8.0,2024-02-11,Delivered,True
+aad7c7c0-3a53-4176-81db-898e14c2732a,Sandra,Charger,30.41,1.0,2023-07-02,Delivered,False
+532b51fc-0db5-4939-8fa2-fc70d8fe52f8,,Mouse Pad,445.33,1.0,"January 04, 2026",Delivered,True
+a7913051-341a-43ee-b999-4f1858457b3a,vconner@example.org,External SSD,256.74,3.0,2024-05-07,pending,True
+95e8c93e-15a0-48ae-bb99-6870a1320b9d,dianebaldwin@example.net,Phone Case,23.64,2.0,2024-07-25,Cancelled,False
+8369e01a-c94f-41ab-8205-f27a0c0af636,,Wireless Headphones,497.08,,30-08-2025,Refunded,True
+6e1656d0-da57-45e4-a872-f15c3e06571b,qsingleton@example.net,External SSD,442.57,4.0,2025-05-10,Cancelled,False
+a8c58dac-15de-4f14-a326-2bd09f94c755,eric46@example.org,Mouse Pad,65.62,2.0,2023-08-27,Cancelled,False
+76cc0573-08ec-479a-a025-33dc0a68013d,prattbryan@example.org,Wireless Headphones,312.31,4.0,2025-08-22,pending,True
+961d8bc0-4136-49b2-ad0e-452834e2d3b9,connersteve@example.org,Wireless Headphones,287.88,5.0,2025-01-02,Pending,False
+f4ef6142-b72f-4c4a-b9a5-fd621b757b20,yfinley@example.com,Mechanical Keyboard,,5.0,2026-02-20,Refunded,False
+6c7b31e2-2814-4437-a6d1-43186f25630d,hooverrichard@example.com,External SSD,213.27,5.0,2024-10-12,Delivered,False
+cfdcc257-076d-490a-a25f-4b1c6d80de7c,jgentry@example.net,Charger,73.31,9.0,2024-01-03,Shipped,True
+011dd8b3-0dd0-4e51-ba55-6835c021fa1b,travis72@example.com,Mouse Pad,396.99,7.0,2025-03-05,Cancelled,True
+bb7b738e-eef7-45cd-8caa-761214a0b00b,whayes@example.org,USB Hub,138.32,3.0,2025-05-01,Shipped,False
+f15ea89d-b1f2-4d8b-acd8-7a48bfe95413,jennifer48@example.net,Mouse Pad,35.39,1.0,2024-09-14,Shipped,False
+46709312-c172-4298-ad94-dd6dece80799,ramirezbrett@example.net,Charger,429.54,2.0,2024-04-03,Delivered,True
+1a4f44f9-a651-4445-b9f3-635cf88c422b,ryanwiggins@example.org,Monitor,478.17,10.0,2023-06-25,Delivered,False
+0329602a-1adb-4533-8764-2bdee967ebdb,douglasgonzalez@example.net,Mechanical Keyboard,237.9,5.0,2025-04-29,Delivered,True
+3cc63141-8189-4c45-9da9-68f2434b4b94,nathan32@example.com,Phone Case,390.65,1.0,2023-11-18,Shipped,True
+5cebe213-56cd-42d2-9b09-ab55e6077d79,,Webcam,134.42,5.0,2025-08-21,Refunded,True
+468fb596-ec9a-460c-9105-122ab0882411,adam91@example.org,Wireless Headphones,246.38,8.0,2025-11-16,delivered,True
+0bab5f9f-a732-4d31-9cce-12d53a2db00a,brownashley@example.com,Wireless Headphones,480.69,5.0,2023-09-19,Pending,True
+3ece9f2c-2f8c-4c08-bf57-83ea707c5f3d,erichenson@example.net,USB Hub,$11.75,8.0,2023-12-18,cancelled,False
+c74d5921-797b-4779-9760-2f215dbc8d63,justinpeterson@example.com,Mouse Pad,303.75,9.0,2025-01-22,Delivered,False
+04a99e63-6a9c-4a33-aa01-260f5b7042df,deanna66@example.org,Monitor,247.92,9.0,2026-03-23,Shipped,True
+0aadacf0-37d7-4190-90bf-d7922ed6d460,kmays@example.com,Phone Case,54.63,4.0,2024-06-22,Delivered,False
+6cfd4940-3fcf-4d85-9526-e3d04ee6f4ff,chopkins@example.net,Webcam,378.52,8.0,2024-09-17,Delivered,False
+033aacd6-e465-4d35-ad79-fddcea0f7718,mlove@example.org,Wireless Headphones,70.39,5.0,2023-11-14,Pending,False
+41febb34-1e83-4d72-8946-9368d5d50f76,tarareynolds@example.com,Charger,$443.52,4.0,2026-05-23,Cancelled,True
+4a7d1dbc-263c-44dc-b8bd-3c6908a6ab0f,xbutler@example.org,Mechanical Keyboard,242.89,4.0,2023-10-17,Refunded,True
+79823eb2-1579-4a0a-a1b2-480c55d85e8d,,Laptop Stand,442.77,1.0,2025-09-22,shipped,True
+8fa624f7-1fab-4884-a29a-aceaf49c9eba,omarmack@example.com,Phone Case,42.35,8.0,2025-11-11,Delivered,True
+dbb8d36b-a2e5-47d7-8c6f-2fcc87dd58d9,tammy78@example.net,Phone Case,321.77,2.0,2025-02-19,Pending,True
+cf7eda11-2df8-4c66-9627-d2b875526e31,eross@example.org,Monitor,449.42,7.0,2024-06-21,cancelled,False
+58b08f1f-73b3-42cf-86bb-f6582f87a429,jasonpowell@example.net,Phone Case,94.12,6.0,2023-11-26,Delivered,True
+10755c97-f5f5-44ed-8323-9ef54ba2e161,gallowaykristina@example.org,External SSD,455.5,6.0,2023-08-26,Pending,True
+23b02845-39b8-44a7-8554-fad0ab4cc89d,xbooker@example.com,Mouse Pad,491.37,4.0,2025-04-18,Cancelled,True
+63771407-e8e7-4789-9eb2-0109a91c2439,timothywhite@example.net,Mechanical Keyboard,42.99,4.0,"May 24, 2024",Cancelled,True
+ed97ec76-21f9-4a99-be54-4d56d096bfd6,zwhite@example.net,External SSD,238.28,,2024-04-22,Refunded,True
+fa281648-9bbd-42ea-b022-7a15e4217251,barnettpatricia@example.net,Phone Case,94.16,2.0,2025-11-30,Pending,False
+401e0548-4fd9-4632-9a48-ef9f2afa3645,smithsara@example.net,Wireless Headphones,273.55,4.0,2023-12-25,Pending,False
+895fd7b3-26b9-4c7f-9118-bb16000f49c8,rushchristina@example.org,Webcam,92.33,2.0,2026-01-08,Cancelled,True
+5ad0a51c-782a-4465-9570-4724c7a4084b,josephbennett@example.com,Mouse Pad,214.05,6.0,07-05-2026,Shipped,False
+71436e1d-54ea-4061-bc27-d6835fb6d625,@nodomain.com,External SSD,139.25,8.0,2024-06-14,Pending,True
+07e7166b-075b-458b-b363-af43244fbafc,taylordawn@example.org,Wireless Headphones,355.57,4.0,"June 27, 2025",Delivered,False
+6513270e-269e-4d37-b2a7-4de452e6b438,jonesamanda@example.com,Webcam,474.44,7.0,2025-02-22,Pending,True
+9be4078c-7c80-45c5-95bd-0132dc685e91,stewartstacy@example.net,Webcam,483.41,8.0,2024-09-17,refunded,True
+1751f579-8e4d-43a3-978a-60d82cb8d14c,john49@example.org,External SSD,$277.48,7.0,2026-01-22,Refunded,False
+b72ce129-55c7-481d-96ac-6c773d895a43,,Webcam,184.24,7.0,2025-11-04,cancelled,True
+7830b083-894e-4f37-baa0-9f65d76de60b,sfranco@example.org,External SSD,92.93,1.0,2025-12-20,pending,False
+42db5b4b-6c7b-437e-9625-e67151b315ec,bellsarah@example.org,Laptop Stand,450.28,6.0,2025-07-18,Delivered,False
+7936d536-243d-4570-ac1e-ea1f265974a7,hawkinsmark@example.net,Mechanical Keyboard,475.97,9.0,2024-12-27,Delivered,True
+1fb17c23-90c1-42cf-93ac-94af0f21ddb6,crystalaguilar@example.org,Wireless Headphones,52.1,7.0,2025-02-16,Pending,True
+bf0e11e0-8659-4243-af95-eee8a70828a7,qjohnson@example.net,External SSD,283.67,1.0,2024-07-13,Refunded,True
+a81100a1-6ea3-40a1-a66d-58b5d1a4c01e,zgardner@example.net,Charger,169.72,9.0,2024-04-27,Cancelled,True
+c417857d-9bd2-4202-b99d-149eebe2eb3b,mccormickrenee@example.net,Mouse Pad,62.46,3.0,2024-07-11,Delivered,False
+13f38870-4fec-4f40-9efa-c2922f65ab4e,anthonysimpson@example.com,Monitor,223.75,6.0,03-08-2023,Shipped,False
+696c63d6-f5ea-4065-877e-f32a3f3f37ea,brian37@example.net,Laptop Stand,$139.43,2.0,2025-05-04,Shipped,False
+8f6d0558-4ef8-4a38-9227-66581e27a1c0,dakotaduncan@example.org,Mechanical Keyboard,319.0,10.0,2024-07-07,Pending,False
+54fc94a4-248c-4fa6-9db4-4741a0d09c62,jillwhite@example.com,Monitor,453.29,4.0,2025-01-21,Shipped,False
+8352bc85-e456-459c-b70a-f5f2d5d5891f,zgross@example.net,Monitor,231.64,9.0,2023-10-25,Cancelled,True
+61ef7bd1-d874-4c79-be73-6d5f75d8d8a4,mendozagabriela@example.org,Laptop Stand,205.14,8.0,2025-04-01,Shipped,True
+37deeaed-1690-4beb-9bc4-7e5ef7629cb0,andersonandrew@example.net,Phone Case,482.51,8.0,2025-02-07,Shipped,False
+185ba663-5b09-4845-939e-f49ca0c02a35,vmcfarland@example.org,Phone Case,106.67,3.0,2024-08-30,Shipped,False
+c8789ae0-e32e-41ea-8369-3486d0e47843,robertsdonald@example.net,Wireless Headphones,118.59,5.0,2023-11-03,Refunded,False
+569908f6-c030-4b21-9315-8ce400721f84,mwilson@example.net,Laptop Stand,146.73,3.0,2023-06-07,Cancelled,True
+92a5bc52-ab34-40fd-a5b0-3ea73a1ed8f1,kfrancis@example.org,Charger,$472.49,5.0,2026-03-18,Shipped,True
+4305e986-8629-4bb5-bf5b-411b24491df6,david84@example.org,Monitor,$143.23,3.0,2025-07-04,Delivered,True
+796f74ad-faf5-4496-988a-f3fbd39630d6,eric82@example.org,Laptop Stand,438.41,10.0,2023-06-10,Cancelled,True
+e2220a7f-03c5-4116-8f80-44a802eb2c86,pricelarry@example.net,Mouse Pad,92.67,5.0,2023-11-23,pending,True
+a2eddbbd-5464-4cc2-80b0-c08bc7702420,christiekramer@example.org,Mechanical Keyboard,15.9,10.0,2025-10-25,Shipped,False
+bb2d420f-0f88-480b-90a3-d6b2aa05e11a,deborah74@example.net,Mechanical Keyboard,399.24,4.0,2024-07-21,Pending,False
+00b09f63-7b48-4ae2-af96-781fadc70e94,michael45@example.com,Mouse Pad,$109.79,1.0,2024-11-07,Cancelled,True
+9187df42-811e-4616-80bb-e6ed8614f504,mckenziebrandy@example.net,Phone Case,439.49,5.0,2025-06-12,Refunded,True
+cfc3f35a-a0e1-4fbd-b52f-9a2aab7e892d,,Mechanical Keyboard,110.79,2.0,2025-06-22,Pending,True
+63cc537b-1e23-4eb4-92fe-f478d6948ded,opierce@example.com,Mouse Pad,375.45,4.0,2025-05-06,Cancelled,False
+4720771f-8ca8-4811-a6d2-287672fdf202,lorishields@example.com,USB Hub,380.99,3.0,2025-07-08,Cancelled,False
+f8cde59b-85f3-4c2e-aad2-8c16c9d7dc2a,kenneth31@example.net,External SSD,450.09,6.0,2023-06-11,Pending,True
+f895fc55-3fd3-4e98-a61f-40dfef82d1a3,,External SSD,15.65,9.0,2025-10-02,Cancelled,False
+efc46c08-039c-4862-a27e-e409289b8ba9,,Mechanical Keyboard,336.99,6.0,2025-04-24,Shipped,False
+3b9edacb-4b2e-4245-a07b-59d80a5527a2,,Webcam,421.15,2.0,2023-12-24,Shipped,True
+57bb7d97-3ac4-4a9a-bb81-392137161c16,marisamann@example.net,Wireless Headphones,455.9,6.0,2023-10-26,Cancelled,False
+9a575555-5399-4ac8-b921-01a23f617877,eugene53@example.com,Monitor,153.94,10.0,2026-04-28,delivered,False
+69c9fef0-3969-4919-88bb-a3175b6e48b0,brianna35@example.net,Mechanical Keyboard,254.16,7.0,2025-11-19,pending,False
+e4ddf9b9-c28e-4907-8722-35c28fcd7f40,ramoscheyenne@example.net,Monitor,264.0,3.0,2025-03-20,Delivered,True
+4ce3b0cc-1202-452f-9975-36b11cb4ba55,paulwalker@example.net,USB Hub,$10.51,7.0,2023-05-27,Pending,False
+63087e52-44c6-4895-be74-9e67730f37f1,,Laptop Stand,492.68,,2025-02-21,Pending,True
+db437386-10d5-4e14-8bf3-d0a7bc9df599,james81@example.net,Mechanical Keyboard,168.41,8.0,2026-03-25,pending,False
+78e4b98d-4787-493b-8a44-eb860726e25c,james95@example.com,Charger,287.5,3.0,10/28/2025,Refunded,True
+a307c31e-9972-4a0e-965b-617104872863,smills@example.com,USB Hub,223.66,9.0,2023-09-15,Shipped,False
+c95ab050-2381-41e9-9296-9d35df3648fb,bad@,Wireless Headphones,378.5,7.0,2024-08-30,Shipped,True
+c9a61015-334f-4a84-a1b9-9161cc21a87a,kylebrown@example.com,Mechanical Keyboard,310.12,1.0,2024-10-16,Pending,True
+5c396f5e-256d-4082-93cd-e6095e73252b,kathy73@example.org,Monitor,119.55,10.0,2025-03-30,Pending,True
+5f49f0fc-40d2-4406-8a32-7e2dbd6a996d,longyolanda@example.net,Monitor,,2.0,2023-08-17,Delivered,True
+759eb559-0b94-4f3a-8b05-e1aeb153d69c,ericgriffin@example.com,USB Hub,79.35,10.0,06/28/2024,Pending,True
+e35c18a0-f9f4-486c-adb6-3aed95acd14a,nicholascohen@example.net,Charger,$374.35,1.0,2025-09-17,Delivered,False
+a9fda2ef-6532-4a48-8bbc-6c9419f48c75,danielledavis@example.org,Mouse Pad,443.28,,2024-08-03,refunded,True
+506f68ac-e232-4994-b647-e8a8e5ee4c91,brightsarah@example.com,Wireless Headphones,$75.21,6.0,2023-12-20,Pending,False
+94e27f77-5936-4783-88ac-a106a573e8ca,aimee78@example.net,Charger,51.19,2.0,2024-05-14,Cancelled,False
+3bdc2efd-b980-4a1e-b4a8-87536fed41d7,,Laptop Stand,$182.21,,2023-08-19,Refunded,True
+4274a3eb-ed84-491e-b132-bf2de040015c,marytaylor@example.org,Charger,407.63,4.0,2024-07-29,shipped,False
+b2c0b0bc-a0e9-4efb-aba8-f8eeea59fdda,betty13@example.com,Phone Case,246.91,7.0,2025-08-15,Pending,False
+fe111ebc-406c-4132-a564-d13410970046,williamhall@example.org,Monitor,366.31,7.0,"May 11, 2025",delivered,False
+b33858a1-a445-4305-8628-087de0aadaba,erinmay@example.com,Wireless Headphones,439.66,4.0,2024-09-11,Pending,True
+c8b6be1f-531f-48d1-a7e2-e6079088ec8a,alyssareed@example.net,External SSD,388.79,3.0,2023-06-11,pending,True
+45619fc0-17b4-434c-b749-5c5ed93ff716,patrickbrewer@example.com,Laptop Stand,,5.0,2026-04-05,Cancelled,True
+8b6bfeae-8d76-47a1-bb50-079e08ab4ae4,eugene61@example.org,Mouse Pad,$112.81,4.0,2024-03-11,Pending,True
+c5ffd933-b066-4350-b055-114e76917752,beth25@example.com,External SSD,94.85,3.0,29-04-2025,Cancelled,False
+134d2c81-ad0a-4387-b5ea-c4c1fffcbff7,danafields@example.org,USB Hub,287.05,1.0,2023-06-17,Cancelled,True
+7830b083-894e-4f37-baa0-9f65d76de60b,sfranco@example.org,External SSD,92.93,1.0,2025-12-20,pending,False
+bf8b90fa-ad48-4bce-b2ee-7f64f07b3e87,brittany71@example.com,Mouse Pad,423.76,8.0,2024-05-15,Pending,False
+0de44e65-1478-47b9-82f0-779db86bb4d6,notanemail,Mouse Pad,357.65,8.0,2023-06-23,Refunded,False
+bf8e51aa-11f2-444d-8c35-e83474fa9412,hopkinscarl@example.net,Mechanical Keyboard,338.03,2.0,2024-10-26,Shipped,False
+75efd233-ff12-4eb4-8d30-7fe489980c50,susan37@example.net,Monitor,256.34,4.0,2024-02-07,Shipped,True
+e04b0dce-e5d0-4a4d-bf75-95b53b3bf4bf,klong@example.org,Mouse Pad,426.29,5.0,2026-04-01,Cancelled,True
+263e8db3-dee7-4644-b060-67ab250bc6e7,robert32@example.org,Mechanical Keyboard,441.27,6.0,2024-03-18,Refunded,True
+b759efcf-292c-4b34-b7c7-14cf8b19a2b6,aprilgarcia@example.net,Mechanical Keyboard,28.34,6.0,2024-10-07,Shipped,True
+f5947675-b4d5-44c0-9eb2-d125ec125488,scottanne@example.net,Wireless Headphones,456.74,2.0,2023-09-01,Pending,True
+070d7109-2085-4634-be3c-9c8f2b855c1f,brittanymarshall@example.net,Charger,84.11,2.0,2023-11-02,Delivered,True
+ee7653c9-bc8d-4872-aebe-17730bbe27a8,lindsey18@example.com,Mouse Pad,186.0,3.0,2024-11-07,Shipped,True
+8d118e37-8172-4a07-bbab-27f604b8157d,williesanchez@example.com,Mechanical Keyboard,23.71,4.0,2023-09-19,Delivered,True
+cddc68d6-55a2-4f59-8bea-c505d6ed9fdf,jorgerodriguez@example.com,Mouse Pad,454.7,9.0,2026-02-08,Cancelled,False
+e429c87c-9ecc-4b5f-b5ff-199d6ab6114f,julieboone@example.net,Charger,411.9,,2025-09-04,Delivered,True
+b4a041f3-dee4-46e8-9ea0-49a48eb078c8,etucker@example.net,Phone Case,22.35,3.0,04/26/2025,Shipped,True
+46191aa0-6f57-4d36-8c22-b1f4bbb91047,danielpruitt@example.com,USB Hub,$130.21,3.0,2024-01-07,Delivered,True
+ce99b522-cc19-493d-99e7-1957f9b1de86,freed@example.net,Mouse Pad,261.2,1.0,2025-01-21,Shipped,False
+7a594f67-c870-4ef2-b96c-1f73e3ac99b2,,Mouse Pad,456.08,1.0,2023-08-22,Refunded,True
+c95ab050-2381-41e9-9296-9d35df3648fb,bad@,Wireless Headphones,378.5,7.0,2024-08-30,Shipped,True

@@ -37,6 +37,10 @@ validator_agent = Agent(
     Set passed=True only if there are zero critical failures.
     Document every rule you applied in rules_applied, even passing ones.
 
+    For rules or failures that apply to the dataset as a whole rather than
+    a single column (e.g. duplicate rows), always use the column value
+    "(all columns)". Never invent other labels like "[dataset]" or "_dataset_".
+
     You will also receive a missingness analysis for each column. Use the
     mechanism field to inform severity:
       MNAR columns with nulls should always be flagged as critical, since

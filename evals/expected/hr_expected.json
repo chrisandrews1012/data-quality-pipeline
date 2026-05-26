@@ -1,0 +1,31 @@
+{
+  "dataset_path": "data/raw/hr_messy.csv",
+  "description": "Synthetic HR dataset with injected issues. See data/generate_synthetic.py for the injection logic.",
+  "known_facts": {
+    "row_count": 520,
+    "duplicate_row_count": 20,
+    "total_null_count": 84
+  },
+  "expected_column_types": {
+    "employee_id": "id",
+    "name": "text",
+    "email": "email",
+    "age": "age",
+    "gender": "categorical",
+    "salary": "currency",
+    "department": "categorical",
+    "hire_date": "date",
+    "is_active": "boolean"
+  },
+  "must_repair": {
+    "duplicate_rows": true,
+    "columns": {
+      "salary": ["currency_symbols"],
+      "age": ["out_of_range"],
+      "department": ["mixed_case"],
+      "hire_date": ["date_format"]
+    }
+  },
+  "must_flag_unresolved": ["email"],
+  "must_not_impute_mnar": true
+}

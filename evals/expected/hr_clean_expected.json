@@ -1,0 +1,24 @@
+{
+  "dataset_path": "data/raw/hr_clean.csv",
+  "description": "Clean HR dataset with no injected issues. The repairer should apply zero actions and zero rows should be dropped. Tests that the pipeline does not invent problems on well-formed data.",
+  "known_facts": {
+    "row_count": 200,
+    "duplicate_row_count": 0,
+    "total_null_count": 0
+  },
+  "expected_column_types": {
+    "employee_id": "id",
+    "name": "text",
+    "email": "email",
+    "age": "age",
+    "gender": "categorical",
+    "salary": "currency",
+    "department": "categorical",
+    "hire_date": "date",
+    "is_active": "boolean"
+  },
+  "must_repair": {},
+  "must_flag_unresolved": [],
+  "must_not_impute_mnar": false,
+  "expect_zero_repairs": true
+}

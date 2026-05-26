@@ -4,6 +4,8 @@ import pytest
 from src.data_quality_pipeline.agents.profiler import run_profiler
 from src.data_quality_pipeline.models import DataProfile
 
+pytestmark = pytest.mark.llm
+
 
 @pytest.fixture
 def sample_csv(tmp_path):

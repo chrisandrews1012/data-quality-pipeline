@@ -63,7 +63,7 @@ def inject_issues(df: pd.DataFrame) -> pd.DataFrame:
             fake.name().replace(" ", ""),
         ])
 
-    # Currency symbols in salary — cast to object first so strings can be mixed in
+    # Currency symbols in salary -- cast to object first so strings can be mixed in
     df["salary"] = df["salary"].astype(object)
     for i in random.sample(range(n), 25):
         val = df.loc[i, "salary"]
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     records = [generate_clean_record() for _ in range(500)]
     df = pd.DataFrame(records)
     df = inject_issues(df)
-    df.to_csv("data/raw/messy_data.csv", index=False)
+    df.to_csv("data/raw/hr_messy.csv", index=False)
     print(f"Generated {len(df)} rows")
     print(f"Nulls per column:\n{df.isnull().sum()}")
