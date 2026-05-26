@@ -1,17 +1,12 @@
 name: CI
 
 # TODO: add test-llm job that runs on push to main with ANTHROPIC_API_KEY secret
+# TODO: add scheduled eval workflow that commits scorecard.md back to repo once real (non-synthetic) data is in use
 
 on:
   push:
     branches: ["main"]
   pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 8 * * 1"
-
-permissions:
-  contents: write
 
 jobs:
   test-fast:
@@ -28,33 +23,3 @@ jobs:
 
       - name: Run fast tests
         run: uv run pytest tests/ -m "not llm" -v
-
-  eval-scorecard:
-    name: Scheduled eval scorecard
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v4
-
-      - name: Install dependencies
-        run: uv sync --group dev
-
-      - name: Run evals
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: make eval
-
-      - name: Commit scorecard
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f evals/results/scorecard.md
-          if git diff --cached --quiet; then
-            echo "No scorecard changes to commit."
-          else
-            git commit -m "Update eval scorecard"
-            git push
-          fi

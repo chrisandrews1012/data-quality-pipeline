@@ -1,6 +1,5 @@
 import pandas as pd
 from pydantic_ai import Agent
-from pydantic_ai.models.anthropic import AnthropicModel
 
 from ..models import ColumnMissingness, DataProfile, MissingnessReport
 from ..tools import (
@@ -11,10 +10,8 @@ from ..tools import (
     load_dataframe,
 )
 
-model = AnthropicModel("claude-sonnet-4-6")
-
 profiler_agent = Agent(
-    model=model,
+    model="anthropic:claude-sonnet-4-6",
     output_type=DataProfile,
     system_prompt="""
     You are a data profiling agent. You receive pre-computed statistics for a

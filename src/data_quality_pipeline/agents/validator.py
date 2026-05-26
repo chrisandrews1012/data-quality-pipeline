@@ -1,12 +1,9 @@
 from pydantic_ai import Agent
-from pydantic_ai.models.anthropic import AnthropicModel
 
 from ..models import DataProfile, ValidationReport
 
-model = AnthropicModel("claude-sonnet-4-6")
-
 validator_agent = Agent(
-    model=model,
+    model="anthropic:claude-sonnet-4-6",
     output_type=ValidationReport,
     system_prompt="""
     You are a data validation agent. You receive a data profile where each
