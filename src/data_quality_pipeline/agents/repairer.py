@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from pydantic_ai import Agent
+from pydantic_ai.models.anthropic import AnthropicModel
 
 from ..models import DataProfile, RepairAction, RepairReport
 from ..tools import (
@@ -14,8 +15,10 @@ from ..tools import (
     standardize_date,
 )
 
+model = AnthropicModel("claude-sonnet-4-6")
+
 repairer_agent = Agent(
-    model="anthropic:claude-sonnet-4-6",
+    model=model,
     output_type=RepairReport,
     system_prompt="""
     You are a data repair agent. You receive a summary of repairs that were
